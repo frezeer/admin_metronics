@@ -113,7 +113,7 @@ class AuthController extends Controller
                     "full_name" => $user->name . ' ' . ($user->surname ?? ''),
                     "email"     => $user->email,
                     "avatar"    => $user->avatar ? env("APP_URL")."storage/".$user->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png', // Fixed typo: avtar -> avatar
-                    "role"      => $user->role ? $user->role->name : null, // Fixed: rol -> role
+                    "role_name"      => $user->role ? $user->role->name : null, // Fixed: rol -> role
                     "permissions" => $permissions,
                 ]
             ]);
@@ -155,7 +155,7 @@ class AuthController extends Controller
                     "full_name" => $user->name . ' ' . ($user->surname ?? ''),
                     "email"     => $user->email,
                     "avatar"    => $user->avatar ? env("APP_URL")."storage/".$user->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-                    "role"      => $user->role ? $user->role->name : null,
+                    "role_name"      => $user->role ? $user->role->name : null,
                     "permissions" => $permissions,
                 ]
             ]);

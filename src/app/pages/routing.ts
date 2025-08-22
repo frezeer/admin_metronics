@@ -58,7 +58,7 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/users/users.module').then((m) => m.UsersModule),
   },
   //mis modulos localhost:4200/configuraciones/list
-     {
+  {
     path: 'configuraciones',
     loadChildren: () => import('../modules/configuration/configuration.module').then((m) => m.ConfigurationModule),
 

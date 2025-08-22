@@ -17,11 +17,12 @@ class SucursaleController extends Controller
         // You can implement the logic to fetch and return the list of branches (sucursales)
      $search = $request->get("search");
 
-     $sucursales = Sucursale::where("name","like", "%".$search."%")->orderBy("id","desc")->paginate(25);
+     $sucursales = Sucursale::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
+     //$users = User::where("name", "like", "%".$search."%")->orderBy("id", "desc")->paginate(25);
 
         return response()->json([
             "total"       => $sucursales->total(),
-            "sucusrsales" => $sucursales->map(function ($sucursal) {
+            "sucursales" => $sucursales->map(function ($sucursal) {
                 return [
                     "id"      =>    $sucursal->id,
                     "name"    =>    $sucursal->name,
@@ -41,6 +42,7 @@ class SucursaleController extends Controller
     {
         //
         $is_exist_sucursale = Sucursale::where("name", $request->name)->first();
+
         if($is_exist_sucursale) {
             return response()->json([
                 "message" => "La sucursal ya existe",
@@ -50,19 +52,18 @@ class SucursaleController extends Controller
         $request->validate([
             "name"    => "required|string|max:255",
             "address" => "required|string|max:255",
-            "state"   => "required|boolean",
         ]);
-        $sucursale = Sucursale::create([
+
+        $sucursale = Sucursale::create(
             $request->all()
-        ]);
+        );
 
         return response()->json([
             "message" => "Sucursal creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "id"         => $sucursale->id,
                 "name"       => $sucursale->name,
-                "address"    => $sucursale->address,
+                "address"    => $sucursale->address ?? 1,
                 "state"      => $sucursale->state,
                 "created_at" => $sucursale->created_at->format('Y-m-d H:i A'),
             ],
@@ -94,7 +95,6 @@ class SucursaleController extends Controller
         $request->validate([
             "name"    => "required|string|max:255",
             "address" => "required|string|max:255",
-            "state"   => "required|boolean",
         ]);
 
         $sucursale = Sucursale::findOrFail($id);
@@ -104,10 +104,10 @@ class SucursaleController extends Controller
             "message" => "Sucursal creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "id"      => $sucursale->id,
-                "name"    => $sucursale->name,
-                "address" => $sucursale->address,
-                "state"   => $sucursale->state,
+                "id"         => $sucursale->id,
+                "name"       => $sucursale->name,
+                "address"    => $sucursale->address,
+                "state"      => $sucursale->state ?? 1,
                 "created_at" => $sucursale->created_at->format('Y-m-d H:i A'),
             ],
         ]);

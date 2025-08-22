@@ -134,15 +134,14 @@ export class UsersService {
     if (!ID_USER || ID_USER <= 0) {
       console.error('ID_USER inválido:', ID_USER);
       this.isLoadingSubject.next(false);
-      return of({ error: true, message_text: 'ID de rol inválido' });
+      return of({ error: true, message_text: 'ID de usuario inválido' });
     }
 
-    if (!data || !data.name || !data.permissions) {
-      console.error('Datos incompletos:', data);
-      this.isLoadingSubject.next(false);
-      return of({ error: true, message_text: 'Datos incompletos' });
-    }
-
+      if (!(data instanceof FormData)) {
+            console.error('Datos inválidos:', data);
+            this.isLoadingSubject.next(false);
+              return of({ error: true, message_text: 'Se esperaba FormData válido' });
+      }
     // Construir headers correctamente
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -192,6 +191,18 @@ export class UsersService {
       })
     );
   }
+
+
+   updateUsers(ID_USER:string,data:any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authservice.token});
+    //const URL = URL_SERVICIOS + 'users/' + ID_USER;
+    let URL = URL_SERVICIOS+"users/"+ID_USER;
+    return this.http.post(URL,data,{headers: headers}).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
 
   deleteUser(ID_USER: string){
         this.isLoadingSubject.next(true);

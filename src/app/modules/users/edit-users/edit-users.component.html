@@ -95,8 +95,9 @@
                         <select class="form-control form-select-solid fw-bolder"
                                 name="role_selected"
                                 placeholder="Selec. Tipo"
-                                >
-	                      <option value="DNI">INE</option>
+                                [(ngModel)]="type_document">
+
+	                      <option value="INE">INE</option>
                         <option value="PASAPORTE">PASAPORTE</option>
                         <option value="DOC EXTRANJERO">PERMISO EXTRAJERO</option>
 
@@ -120,8 +121,8 @@
                         <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
                         <label class="custom-file-label" for="customFile">Selecciona tu Avatar</label>
                         </div>
-                        <div *ngIf="imagen_previsualiza">
-                            <img [src]="imagen_previsualiza" style="height: 100px;" alt="">
+                        <div *ngIf="imagen_previzualiza">
+                            <img [src]="imagen_previzualiza" style="height: 100px;" alt="">
                         </div>
                     </div>
                 </div>

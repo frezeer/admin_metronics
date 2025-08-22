@@ -71,6 +71,7 @@ export class ListUsersComponent {
         modalRef.componentInstance.USER_SELECTED = USER; //emite al hijo
         console.log(USER)
         modalRef.componentInstance.roles = this.roles;
+        console.log(this.roles);
 
         modalRef.componentInstance.UserE.subscribe((user:any) => {
           let INDEX = this.USERS.findIndex((user:any) => user.id === USER.id);

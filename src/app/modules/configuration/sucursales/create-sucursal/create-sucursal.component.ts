@@ -18,8 +18,6 @@ export class CreateSucursalComponent {
      name:           string = '';
      address:        string = '';
 
-
-
       constructor(
         public modal: NgbActiveModal,
         public sucursalService: SucursalService , // Assuming RolesService is injected here

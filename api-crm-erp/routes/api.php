@@ -51,5 +51,5 @@ Route::group([
     Route::resource("users", UserAccessContorller::class);
 
     Route::resource("sucursales", SucursaleController::class);
-    Route::resource("wharehouse", WarehouseController::class);
+    Route::resource("warehouse", WarehouseController::class);
 });

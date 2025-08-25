@@ -17,6 +17,7 @@ class Warehouse extends Model
         "name",
         "address",
         "state",
+        "sucursale_id"
     ];
 
 
@@ -27,5 +28,10 @@ class Warehouse extends Model
     public function setUpdatedAttribute($value){
         date_default_timezone_set('America/Mexico_City');
         $this->attributes['updated_at'] = Carbon::now();
+    }
+
+
+    public function sucursale(){
+        return $this->belongsTo(Sucursale::class, "sucursale_id");
     }
 }

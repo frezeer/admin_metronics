@@ -17,22 +17,22 @@ class WarehouseController extends Controller
         // You can implement the logic to fetch and return the list of branches (sucursales)
      $search = $request->get("search");
 
-     $warehouse = Warehouse::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
-     //$users = User::where("name", "like", "%".$search."%")->orderBy("id", "desc")->paginate(25);
+     $warehouses = Warehouse::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
 
         return response()->json([
-            "total"       => $warehouse->total(),
-            "sucursales"  => $warehouse->map(function ($sucursal) {
+            "total"       => $warehouses->total(),
+            "warehouses"  => $warehouses->map(function ($warehouse) {
                 return [
-                    "id"      =>    $sucursal->id,
-                    "name"    =>    $sucursal->name,
-                    "address" =>    $sucursal->address,
-                    "state"   =>    $sucursal->state,
-                    "created_at" => $sucursal->created_at->format('Y-m-d H:i A'),
+                    "id"      =>      $warehouse->id,
+                    "name"    =>      $warehouse->name,
+                    "address" =>      $warehouse->address,
+                    "state"   =>      $warehouse->state,
+                    "sucursale_id" => $warehouse->sucursale_id,
+                    "sucursale" =>    $warehouse->sucursale,
+                    "created_at" =>   $warehouse->created_at->format('Y-m-d H:i A'),
                 ];
             }),
         ]);
-
     }
 
     /**

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { UsersService } from 'src/app/modules/users/service/users.service';
 import { SucursalService } from '../service/sucursal.service';
 
 @Component({
@@ -64,4 +63,5 @@ export class CreateSucursalComponent {
       }
     });
   }
+
 }

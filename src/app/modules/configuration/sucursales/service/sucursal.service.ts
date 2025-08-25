@@ -45,6 +45,16 @@ listSucursal(page =1 , search:string = '') {
     );
 }
 
+
+  updateSucursal(ID_SUCURSAL:string,data:any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authservice.token});
+    let URL = URL_SERVICIOS+"sucursales/"+ID_SUCURSAL;
+    return this.http.put(URL,data,{headers: headers}).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
 /*
   updateRol(ID_ROLE: string , data: any ){
       console.log('Datos inicializados:', ID_ROLE),
@@ -110,7 +120,7 @@ listSucursal(page =1 , search:string = '') {
 
    } */
 
-  updateRol(ID_SUCURSAL: number, data: any) {
+  updateSucursales(ID_SUCURSAL: number, data: any) {
   console.log('=== INICIO UPDATE SUCURSAL ===');
   console.log('ID_ROLE:', ID_SUCURSAL);
   console.log('Data enviada:', data);
@@ -128,7 +138,7 @@ listSucursal(page =1 , search:string = '') {
     return of({ error: true, message_text: 'ID de rol inválido' });
   }
 
-  if (!data || !data.name || !data.permissions) {
+  if (!data || !data.name) {
     console.error('Datos incompletos:', data);
     this.isLoadingSubject.next(false);
     return of({ error: true, message_text: 'Datos incompletos' });

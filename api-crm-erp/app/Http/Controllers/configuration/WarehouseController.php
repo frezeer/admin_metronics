@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\configuration;
+namespace App\Http\Controllers\Configuration;
 
 use App\Http\Controllers\Controller;
+use App\Models\Configuration\Warehouse;
 use Illuminate\Http\Request;
-use App\Models\configuration\Sucursale;
 
-class SucursaleController extends Controller
+class WarehouseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +17,12 @@ class SucursaleController extends Controller
         // You can implement the logic to fetch and return the list of branches (sucursales)
      $search = $request->get("search");
 
-     $sucursales = Sucursale::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
+     $warehouse = Warehouse::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
      //$users = User::where("name", "like", "%".$search."%")->orderBy("id", "desc")->paginate(25);
 
         return response()->json([
-            "total"       => $sucursales->total(),
-            "sucursales" => $sucursales->map(function ($sucursal) {
+            "total"       => $warehouse->total(),
+            "sucursales"  => $warehouse->map(function ($sucursal) {
                 return [
                     "id"      =>    $sucursal->id,
                     "name"    =>    $sucursal->name,
@@ -41,9 +41,9 @@ class SucursaleController extends Controller
     public function store(Request $request)
     {
         //
-        $is_exist_sucursale = Sucursale::where("name", $request->name)->first();
+        $is_exist_warehouse = Warehouse::where("name", $request->name)->first();
 
-        if($is_exist_sucursale) {
+        if($is_exist_warehouse) {
             return response()->json([
                 "message" => "La sucursal ya existe",
                 "status"  => false,
@@ -54,7 +54,7 @@ class SucursaleController extends Controller
             "address" => "required|string|max:255",
         ]);
 
-        $sucursale = Sucursale::create(
+        $warehouse = Warehouse::create(
             $request->all()
         );
 
@@ -62,10 +62,10 @@ class SucursaleController extends Controller
             "message" => "Sucursal creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "name"       => $sucursale->name,
-                "address"    => $sucursale->address,
-                "state"      => $sucursale->state ?? 1,
-                "created_at" => $sucursale->created_at->format('Y-m-d H:i A'),
+                "name"       => $warehouse->name,
+                "address"    => $warehouse->address,
+                "state"      => $warehouse->state ?? 1,
+                "created_at" => $warehouse->created_at->format('Y-m-d H:i A'),
             ],
         ]);
     }
@@ -83,10 +83,10 @@ class SucursaleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $is_exist_sucursale = Sucursale::where("name", $request->name)
+         $is_exist_warehouse = Warehouse::where("name", $request->name)
                                         ->where("id","<>",$id)->first();
 
-        if($is_exist_sucursale) {
+        if($is_exist_warehouse) {
             return response()->json([
                 "message" => "La sucursal ya existe",
                 "status"  => false,
@@ -97,18 +97,18 @@ class SucursaleController extends Controller
             "address" => "required|string|max:255",
         ]);
 
-        $sucursale = Sucursale::findOrFail($id);
-        $sucursale->update($request->all());
+        $warehouse = Warehouse::findOrFail($id);
+        $warehouse->update($request->all());
 
         return response()->json([
             "message" => "Sucursal creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "id"         => $sucursale->id,
-                "name"       => $sucursale->name,
-                "address"    => $sucursale->address,
-                "state"      => $sucursale->state ?? 1,
-                "created_at" => $sucursale->created_at->format('Y-m-d H:i A'),
+                "id"         => $warehouse->id,
+                "name"       => $warehouse->name,
+                "address"    => $warehouse->address,
+                "state"      => $warehouse->state ?? 1,
+                "created_at" => $warehouse->created_at->format('Y-m-d H:i A'),
             ],
         ]);
     }
@@ -118,9 +118,9 @@ class SucursaleController extends Controller
      */
     public function destroy(string $id)
     {
-         $sucursale = Sucursale::findOrFail($id);
+         $warehouse = Warehouse::findOrFail($id);
          //validacion por prfoforma
-         $sucursale->delete();
+         $warehouse->delete();
          return response()->json([
              "message" => "Sucursal eliminada correctamente",
              "status"  => true,

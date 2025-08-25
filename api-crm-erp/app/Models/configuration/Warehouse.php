@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models\configuration;
+namespace App\Models\Configuration;
+
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Sucursale extends Model
+class Warehouse extends Model
 {
-
     use HasFactory;
     use SoftDeletes;
 
@@ -17,7 +17,6 @@ class Sucursale extends Model
         "name",
         "address",
         "state",
-        "sucursale_id"
     ];
 
 
@@ -29,6 +28,4 @@ class Sucursale extends Model
         date_default_timezone_set('America/Mexico_City');
         $this->attributes['updated_at'] = Carbon::now();
     }
-
-
 }

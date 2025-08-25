@@ -5,6 +5,7 @@ import { SucursalService } from '../service/sucursal.service';
 import { CreateSucursalComponent } from '../create-sucursal/create-sucursal.component';
 import { EditSucursalComponent } from '../edit-sucursal/edit-sucursal.component';
 import { DeleteUsersComponent } from 'src/app/modules/users/delete-users/delete-users.component';
+import { DeleteSucursalComponent } from '../delete-sucursal/delete-sucursal.component';
 
 ///este es el componente PADRE
 
@@ -13,6 +14,7 @@ import { DeleteUsersComponent } from 'src/app/modules/users/delete-users/delete-
   templateUrl: './list-sucursal.component.html',
   styleUrls: ['./list-sucursal.component.scss']
 })
+
 export class ListSucursalComponent implements OnInit {
 
     search: string = '';
@@ -60,28 +62,28 @@ export class ListSucursalComponent implements OnInit {
 
     editSucursal(SUCURSAL:any)
     {
-      //   const modalRef = this.ModalService.open(EditSucursalComponent, {centered: true, size: 'md'});
-      //   modalRef.componentInstance.SUCURSALES = SUCURSAL; //emite al hijo
-      //   modalRef.componentInstance.SucursalE.subscribe((sucursal:any) => {
+        const modalRef = this.ModalService.open(EditSucursalComponent, {centered: true, size: 'md'});
+         modalRef.componentInstance.SUCURSAL_SELECTED = SUCURSAL; //emite al hijo
+         modalRef.componentInstance.SucursalE.subscribe((sucursal:any) => {
 
-      //     let INDEX = this.SUCURSALES.findIndex((sucursal:any) => sucursal.id === SUCURSAL.id);
-      //     if(INDEX !== -1){
-      //       this.SUCURSALES[INDEX] = sucursal;
-      //     }
-      //  });
+          let INDEX = this.SUCURSALES.findIndex((sucursal:any) => sucursal.id === SUCURSAL.id);
+           if(INDEX !== -1){
+            this.SUCURSALES[INDEX] = sucursal;
+          }
+        });
      }
 
 
     deleteSucursal(SUCURSAL:any){
-    //     const modalRef = this.ModalService.open(DeleteUsersComponent, {centered: true, size: 'md'});
-    //     modalRef.componentInstance.SUCURSALES = SUCURSAL; //emite al hijo
-    //     modalRef.componentInstance.SucursalD.subscribe((sucursal:any) => {
-    //       // this.ROLES.unshift(role);
-    //       let INDEX = this.SUCURSALES.findIndex((sucursal:any) => sucursal.id === SUCURSAL.id);
-    //       if(INDEX !== -1){
-    //         this.SUCURSALES.splice(INDEX,1);
-    //       }
-    //   });
+        const modalRef = this.ModalService.open(DeleteSucursalComponent, {centered: true, size: 'md'});
+         modalRef.componentInstance.SUCURSAL_SELECTED = SUCURSAL; //emite al hijo
+          modalRef.componentInstance.SucursalD.subscribe((sucursal:any) => {
+         // this.ROLES.unshift(role);
+           let INDEX = this.SUCURSALES.findIndex((sucursal:any) => sucursal.id === SUCURSAL.id);
+           if(INDEX !== -1){
+           this.SUCURSALES.splice(INDEX,1);
+           }
+       });
      }
 
 }

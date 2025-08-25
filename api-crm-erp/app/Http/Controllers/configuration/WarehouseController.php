@@ -65,6 +65,8 @@ class WarehouseController extends Controller
                 "name"       => $warehouse->name,
                 "address"    => $warehouse->address,
                 "state"      => $warehouse->state ?? 1,
+                "sucursale_id" => $warehouse->sucursale_id,
+                "sucursale" =>    $warehouse->sucursale,
                 "created_at" => $warehouse->created_at->format('Y-m-d H:i A'),
             ],
         ]);
@@ -104,11 +106,13 @@ class WarehouseController extends Controller
             "message" => "Sucursal creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "id"         => $warehouse->id,
-                "name"       => $warehouse->name,
-                "address"    => $warehouse->address,
-                "state"      => $warehouse->state ?? 1,
-                "created_at" => $warehouse->created_at->format('Y-m-d H:i A'),
+                "id"           => $warehouse->id,
+                "name"         => $warehouse->name,
+                "address"      => $warehouse->address,
+                "state"        => $warehouse->state ?? 1,
+                "sucursale_id" => $warehouse->sucursale_id,
+                "sucursale"    => $warehouse->sucursale,
+                "created_at"   => $warehouse->created_at->format('Y-m-d H:i A'),
             ],
         ]);
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\configuration\SucursaleController;
 use App\Http\Controllers\Configuration\WarehouseController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserAccessContorller;
+use App\Models\Configuration\Warehouse;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +52,8 @@ Route::group([
     Route::resource("users", UserAccessContorller::class);
 
     Route::resource("sucursales", SucursaleController::class);
+
+
+    Route::get('/warehouse/config', [WarehouseController::class, 'config']);
     Route::resource("warehouse", WarehouseController::class);
 });

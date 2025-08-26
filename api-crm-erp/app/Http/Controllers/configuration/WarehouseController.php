@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Configuration;
 
 use App\Http\Controllers\Controller;
+use App\Models\configuration\Sucursale;
 use App\Models\Configuration\Warehouse;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,19 @@ class WarehouseController extends Controller
         ]);
     }
 
+    public function config()
+    {
+        $sucursales = Sucursale::where("state",1)->orderBy("id", "desc")->get();
+        return response()->json([
+                    "sucursales" =>  $sucursales->map(function($sucursale) {
+                        return [
+                            "id"   => $sucursale->id,
+                            "name" => $sucursale->name,
+                        ];
+                    }),
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -62,12 +76,12 @@ class WarehouseController extends Controller
             "message" => "Sucursal creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "name"       => $warehouse->name,
-                "address"    => $warehouse->address,
-                "state"      => $warehouse->state ?? 1,
-                "sucursale_id" => $warehouse->sucursale_id,
-                "sucursale" =>    $warehouse->sucursale,
-                "created_at" => $warehouse->created_at->format('Y-m-d H:i A'),
+                "name"          => $warehouse->name,
+                "address"       => $warehouse->address,
+                "state"         => $warehouse->state ?? 1,
+                "sucursale_id"  => $warehouse->sucursale_id,
+                "sucursale"     => $warehouse->sucursale,
+                "created_at"    => $warehouse->created_at->format('Y-m-d H:i A'),
             ],
         ]);
     }
@@ -123,7 +137,7 @@ class WarehouseController extends Controller
     public function destroy(string $id)
     {
          $warehouse = Warehouse::findOrFail($id);
-         //validacion por prfoforma
+         //validacion por compras o ventas
          $warehouse->delete();
          return response()->json([
              "message" => "Sucursal eliminada correctamente",

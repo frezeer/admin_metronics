@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SucursalService } from '../service/sucursal.service';
 import { CreateSucursalComponent } from '../create-sucursal/create-sucursal.component';
 import { EditSucursalComponent } from '../edit-sucursal/edit-sucursal.component';
-import { DeleteUsersComponent } from 'src/app/modules/users/delete-users/delete-users.component';
 import { DeleteSucursalComponent } from '../delete-sucursal/delete-sucursal.component';
 
 ///este es el componente PADRE

@@ -18,7 +18,7 @@ export class CreateWarehouseComponent {
        isLoading:      any;
        name:           string = '';
        address:        string = '';
-       sucursal_id:    string = '';
+       sucursale_id:   string = '';
 
         constructor(
           public modal: NgbActiveModal,
@@ -49,7 +49,7 @@ export class CreateWarehouseComponent {
       let data = {
         name:        this.name,
         address:     this.address,
-        sucursal_id: this.sucursal_id,
+        sucursale_id: this.sucursale_id,
       };
 
       console.log(data);

@@ -52,8 +52,5 @@ Route::group([
     Route::resource("users", UserAccessContorller::class);
 
     Route::resource("sucursales", SucursaleController::class);
-
-
-    //Route::get('/warehouse/config', [WarehouseController::class, 'config']);
     Route::resource("warehouse", WarehouseController::class);
 });

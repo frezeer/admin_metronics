@@ -15,6 +15,7 @@ export class ListWarehouseComponent {
 
       search: string = '';
       WAREHOUSES:any = [];
+      SUCURSALES:any = [];
       isLoading$:any;
       totalPages:  number = 0;
       currentPage: number = 1;
@@ -35,9 +36,10 @@ export class ListWarehouseComponent {
       listWarehouse(page = 1){
         this.warehouseService.listWarehouse(page = 1, this.search).subscribe((resp:any) => {
               console.log(resp);
-               this.WAREHOUSES = resp.warehouse; //lo que trae del backend para llenar el html
+               this.WAREHOUSES = resp.warehouses; //lo que trae del backend para llenar el html
                this.totalPages = resp.total;
                this.currentPage = page;
+               this.SUCURSALES = resp.sucursales;
 
         })
       }
@@ -50,8 +52,9 @@ export class ListWarehouseComponent {
 
       createWarehouse() {
         const modalRef = this.ModalService.open(CreateWarehouseComponent, {centered: true, size: 'md'});
-            modalRef.componentInstance.WarehouseC.subscribe((sucursal:any) => {
-            this.WAREHOUSES.unshift(sucursal);
+            modalRef.componentInstance.SUCURSALES = this.SUCURSALES; //emite al hijo
+            modalRef.componentInstance.WarehouseC.subscribe((warehouse:any) => {
+            this.WAREHOUSES.unshift(warehouse);
       });
     }
 
@@ -60,7 +63,7 @@ export class ListWarehouseComponent {
       {
           const modalRef = this.ModalService.open(EditWarehouseComponent, {centered: true, size: 'md'});
            modalRef.componentInstance.WAREHOUSE_SELECTED = WAREHOUSE; //emite al hijo
-           modalRef.componentInstance.SucursalE.subscribe((warehouse:any) => {
+           modalRef.componentInstance.WarehouseE.subscribe((warehouse:any) => {
 
             let INDEX = this.WAREHOUSES.findIndex((warehouse:any) => warehouse.id === WAREHOUSE.id);
              if(INDEX !== -1){
@@ -73,7 +76,7 @@ export class ListWarehouseComponent {
       deleteWarehouse(WAREHOUSE:any){
           const modalRef = this.ModalService.open(DeleteWarehouseComponent, {centered: true, size: 'md'});
            modalRef.componentInstance.WAREHOUSE_SELECTED = WAREHOUSE; //emite al hijo
-            modalRef.componentInstance.SucursalD.subscribe((warehouse:any) => {
+            modalRef.componentInstance.WarehouseD.subscribe((warehouse:any) => {
            // this.ROLES.unshift(role);
              let INDEX = this.WAREHOUSES.findIndex((warehouse:any) => warehouse.id === WAREHOUSE.id);
              if(INDEX !== -1){

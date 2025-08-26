@@ -21,13 +21,14 @@ export class WarehouseService {
    }
 
   RegisterWarehouse(data: any) {
-  console.log('Register wharehouse', data);
+  console.log('Register warehouse', data);
   console.log('Token', this.authservice.token);
   this.isLoadingSubject.next(true);
   let headers = new HttpHeaders({
     'Authorization': 'Bearer ' + this.authservice.token  // ← corrección aquí
   });
-  let URL = URL_SERVICIOS + 'wharehouse';
+
+  let URL = URL_SERVICIOS + 'warehouse';
   console.log(URL)
   return this.http.post(URL, data, { headers: headers }).pipe(
     finalize(() => this.isLoadingSubject.next(false))
@@ -58,7 +59,7 @@ export class WarehouseService {
   updateWarehouse(ID_WAREHOUSE:string,data:any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authservice.token});
-    let URL = URL_SERVICIOS+"warehouse/"+ID_WAREHOUSE;
+    let URL = URL_SERVICIOS+"warehouse/" + ID_WAREHOUSE;
     return this.http.put(URL,data,{headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

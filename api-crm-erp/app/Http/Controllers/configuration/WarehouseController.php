@@ -19,6 +19,7 @@ class WarehouseController extends Controller
      $search = $request->get("search");
 
      $warehouses = Warehouse::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
+     $sucursales = Sucursale::where("state",1)->orderBy("id", "desc")->get();
 
         return response()->json([
             "total"       => $warehouses->total(),
@@ -33,6 +34,12 @@ class WarehouseController extends Controller
                     "created_at" =>   $warehouse->created_at->format('Y-m-d H:i A'),
                 ];
             }),
+            "sucursales" =>  $sucursales->map(function($sucursale) {
+                        return [
+                            "id"   => $sucursale->id,
+                            "name" => $sucursale->name,
+                        ];
+                    }),
         ]);
     }
 
@@ -59,7 +66,7 @@ class WarehouseController extends Controller
 
         if($is_exist_warehouse) {
             return response()->json([
-                "message" => "La sucursal ya existe",
+                "message" => "El alamcen ya existe",
                 "status"  => false,
             ], 403);
         }
@@ -104,7 +111,7 @@ class WarehouseController extends Controller
 
         if($is_exist_warehouse) {
             return response()->json([
-                "message" => "La sucursal ya existe",
+                "message" => "El almacen ya existe",
                 "status"  => false,
             ], 403);
         }
@@ -117,7 +124,7 @@ class WarehouseController extends Controller
         $warehouse->update($request->all());
 
         return response()->json([
-            "message" => "Sucursal creada correctamente",
+            "message" => "Almacen creado correctamente",
             "status"  => true,
             "sucursal" => [
                 "id"           => $warehouse->id,
@@ -140,7 +147,7 @@ class WarehouseController extends Controller
          //validacion por compras o ventas
          $warehouse->delete();
          return response()->json([
-             "message" => "Sucursal eliminada correctamente",
+             "message" => "Almacen eliminado correctamente",
              "status"  => true,
          ]);
     }

@@ -28,7 +28,7 @@ export class SucursalDeliverieService {
   let headers = new HttpHeaders({
     'Authorization': 'Bearer ' + this.authservice.token  // ← corrección aquí
   });
-  let URL = URL_SERVICIOS + 'lugar-de-entrega';
+  let URL = URL_SERVICIOS + 'sucursal_deliveries';
   console.log(URL)
   return this.http.post(URL, data, { headers: headers }).pipe(
     finalize(() => this.isLoadingSubject.next(false))
@@ -39,7 +39,7 @@ listSucursalDeliverie(page =1 , search:string = '') {
     console.log('Token de List ListSucursalesDeliverie', this.authservice.token);
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
-    let URL = URL_SERVICIOS + 'lugar-de-entrega?page=' + page + '&search=' + search;
+    let URL = URL_SERVICIOS + 'sucursal_deliveries?page=' + page + '&search=' + search;
     return this.http.get(URL,{ headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
@@ -49,7 +49,7 @@ listSucursalDeliverie(page =1 , search:string = '') {
   updateSucursalDeliverie(ID_SUCURSAL:string,data:any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authservice.token});
-    let URL = URL_SERVICIOS+"lugar-de-entrega/"+ID_SUCURSAL;
+    let URL = URL_SERVICIOS+"sucursal_deliveries/"+ID_SUCURSAL;
     return this.http.put(URL,data,{headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
@@ -151,7 +151,7 @@ listSucursalDeliverie(page =1 , search:string = '') {
     'Authorization': 'Bearer ' + (this.authservice.token || '')
   });
 
-  const URL = URL_SERVICIOS + 'lugar-de-entrega/' + ID_SUCURSAL;
+  const URL = URL_SERVICIOS + 'sucursal_deliveries/' + ID_SUCURSAL;
 
   console.log('URL completa:', URL);
   console.log('Headers:', headers);
@@ -199,7 +199,7 @@ listSucursalDeliverie(page =1 , search:string = '') {
       let headers = new HttpHeaders({
         'Authorization': 'Bearer ' + this.authservice.token  // ← corrección aquí
       });
-      let URL = URL_SERVICIOS + 'lugar-de-entrega/'+ ID_SUCURSAL;
+      let URL = URL_SERVICIOS + 'sucursal_deliveries/'+ ID_SUCURSAL;
       return this.http.delete(URL,{ headers: headers }).pipe(
         finalize(() => this.isLoadingSubject.next(false))
       );

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { WarehouseService } from '../service/warehouse.service';
+import { SucursalDeliverieService } from '../../sucursal-deliveries/service/sucursal-deliverie.service';
 
 @Component({
   selector: 'app-delete-warehouse',
@@ -12,8 +13,8 @@ export class DeleteWarehouseComponent {
 
 
   //emisores que vienen del componente padre en este caso ListRolesComponent
-       @Output() WarehouseD: EventEmitter<any> = new EventEmitter();
-       @Input()  WAREHOUSE_SELECTED: any; //EMITIR UN VALOR A ESTE COMPONENTE DESDE EL PADRE
+       @Output() SucursalDeliverieD: EventEmitter<any> = new EventEmitter();
+       @Input()  SUCURSAL_SELECTED_DELIVERIE: any; //EMITIR UN VALOR A ESTE COMPONENTE DESDE EL PADRE
 
         name:          string = '';
         isLoading:     any;
@@ -21,7 +22,7 @@ export class DeleteWarehouseComponent {
 
         constructor(
           public modal: NgbActiveModal,
-          public warehouseService: WarehouseService , // Assuming RolesService is injected here
+          public sucursalDeliverieService: SucursalDeliverieService , // Assuming RolesService is injected here
           public toast: ToastrService,
         ) {
 
@@ -32,13 +33,13 @@ export class DeleteWarehouseComponent {
 
          delete()
         {
-           this.warehouseService.deleteWarehouse(this.WAREHOUSE_SELECTED.id).subscribe((resp:any) => {
+           this.sucursalDeliverieService.deleteSucursalDeliverie(this.SUCURSAL_SELECTED_DELIVERIE.id).subscribe((resp:any) => {
              console.log(resp);
             if(resp.message == 403){
               this.toast.error('validacion', resp.message_text);
             }else{
-              this.toast.success('Exito', 'Almacen eliminado correctamente');
-              this.WarehouseD.emit(resp);
+              this.toast.success('Exito', 'Direccion de entrega eliminada correctamente');
+              this.SucursalDeliverieD.emit(resp);
               this.modal.close();
             }
 

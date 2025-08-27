@@ -61,7 +61,7 @@ class SucursaleDeliverieController extends Controller
         return response()->json([
             "message" => "SucursalDeliveries Lugar de Entrega creada correctamente",
             "status"  => true,
-            "sucursal" => [
+            "sucursal_deliverie" => [
                 "name"       => $sucursale_deliverie->name,
                 "address"    => $sucursale_deliverie->address,
                 "state"      => $sucursale_deliverie->state ?? 1,
@@ -103,7 +103,7 @@ class SucursaleDeliverieController extends Controller
         return response()->json([
             "message" => "SucursalDeliveries Lugar de entrega creada correctamente",
             "status"  => true,
-            "sucursal" => [
+            "sucursal_deliverie" => [
                 "id"         => $sucursale_deliverie->id,
                 "name"       => $sucursale_deliverie->name,
                 "address"    => $sucursale_deliverie->address,

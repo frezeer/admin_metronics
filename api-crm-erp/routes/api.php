@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\configuration\SucursaleController;
+use App\Http\Controllers\Configuration\SucursaleDeliverieController;
 use App\Http\Controllers\Configuration\WarehouseController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserAccessContorller;
@@ -53,4 +54,5 @@ Route::group([
 
     Route::resource("sucursales", SucursaleController::class);
     Route::resource("warehouse", WarehouseController::class);
+    Route::resource("sucursal_deliveries", SucursaleDeliverieController::class);
 });

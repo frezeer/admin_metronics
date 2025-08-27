@@ -122,7 +122,7 @@ class SucursaleDeliverieController extends Controller
          //validacion por prfoforma
          $sucursale_deliverie->delete();
          return response()->json([
-             "message" => "Sucursal eliminada correctamente",
+             "message" => "SucursalDeliveries Lugar de entrega eliminada correctamente",
              "status"  => true,
          ]);
     }

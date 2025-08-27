@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { SucursalService } from '../../sucursales/service/sucursal.service';
+import { SucursalDeliverieService } from '../service/sucursal-deliverie.service';
 
 @Component({
   selector: 'app-edit-surcursal-deliveries',
@@ -20,7 +20,7 @@ export class EditSurcursalDeliveriesComponent {
 
           constructor(
             public modal: NgbActiveModal,
-            public sucursalService: SucursalService , // Assuming RolesService is injected here
+            public sucursalDeliverieService: SucursalDeliverieService , // Assuming RolesService is injected here
             public toast: ToastrService,
           ) {
 
@@ -56,7 +56,7 @@ export class EditSurcursalDeliveriesComponent {
 
         console.log(data);
 
-         this.sucursalService.updateSucursal(this.SUCURSAL_SELECTED_DELIVERIE.id,data).subscribe((resp:any) => {
+         this.sucursalDeliverieService.updateSucursalDeliverie(this.SUCURSAL_SELECTED_DELIVERIE.id,data).subscribe((resp:any) => {
 
           console.log(resp);
 

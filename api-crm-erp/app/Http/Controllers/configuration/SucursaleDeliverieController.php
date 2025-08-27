@@ -15,15 +15,15 @@ class SucursaleDeliverieController extends Controller
     public function index(Request $request)
     {
         // This method should return a list of resources
-        // You can implement the logic to fetch and return the list of branches (sucursales_deliverie$sucursales_deliverie)
+        // You can implement the logic to fetch and return the list of branches (sucursal_deliverie$sucursales_deliverie)
      $search = $request->get("search");
 
-     $sucursales_deliverie = SucursaleDeliverie::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
+     $sucursale_deliverie = SucursaleDeliverie::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
 
 
         return response()->json([
-            "total"       => $sucursales_deliverie->total(),
-            "sucursales_deliverie$sucursales_deliverie" => $sucursales_deliverie->map(function ($sucursal) {
+            "total"       => $sucursale_deliverie->total(),
+            "sucursale_deliverie" =>  $sucursale_deliverie->map(function ($sucursal) {
                 return [
                     "id"      =>    $sucursal->id,
                     "name"    =>    $sucursal->name,

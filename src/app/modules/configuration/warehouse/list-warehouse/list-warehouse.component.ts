@@ -52,7 +52,7 @@ export class ListWarehouseComponent {
 
       createWarehouse() {
         const modalRef = this.ModalService.open(CreateWarehouseComponent, {centered: true, size: 'md'});
-            modalRef.componentInstance.SUCURSALES = this.SUCURSALES; //emite al hijo
+            modalRef.componentInstance.SUCURSALES = this.SUCURSALES; //emite al hijo el id de la sucursal
             modalRef.componentInstance.WarehouseC.subscribe((warehouse:any) => {
             this.WAREHOUSES.unshift(warehouse);
       });
@@ -62,8 +62,9 @@ export class ListWarehouseComponent {
       editWarehouse(WAREHOUSE:any)
       {
           const modalRef = this.ModalService.open(EditWarehouseComponent, {centered: true, size: 'md'});
-           modalRef.componentInstance.WAREHOUSE_SELECTED = WAREHOUSE; //emite al hijo
-           modalRef.componentInstance.WarehouseE.subscribe((warehouse:any) => {
+            modalRef.componentInstance.WAREHOUSE_SELECTED = WAREHOUSE; //emite al hijo
+            modalRef.componentInstance.SUCURSALES = this.SUCURSALES; //
+            modalRef.componentInstance.WarehouseE.subscribe((warehouse:any) => {
 
             let INDEX = this.WAREHOUSES.findIndex((warehouse:any) => warehouse.id === WAREHOUSE.id);
              if(INDEX !== -1){

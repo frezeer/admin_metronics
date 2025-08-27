@@ -48,6 +48,17 @@
                         <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="address" name="address" placeholder="Direccion del Almacen"></textarea>
                     </div>
 
+                    <div class="fv-row mb-7">
+                      <label class="required fw-bold fs-6 mb-2">Selec. Sucursal (opcional)</label>
+                      <select class="form-control form-select-solid fw-bolder" name="sucursal_id" placeholder="Select de Sucursal"
+                        [(ngModel)]="sucursale_id">
+                           <option value="">Seleccciona una Sucursal</option>
+                        <ng-container *ngFor="let sucursal of SUCURSALES">
+                          <option [value]="sucursal.id">{{sucursal.name}}</option>
+                        </ng-container>
+                      </select>
+                    </div>
+
                     </div>
                         <div class="fv-row mb-7">
                           <label class="required fw-bold fs-6 mb-2">Selec. STATE</label>

@@ -12,8 +12,7 @@ import { WarehouseService } from '../service/warehouse.service';
 export class CreateWarehouseComponent {
 
     @Output() WarehouseC: EventEmitter<any> = new EventEmitter();
-    @Input()  SUCURSALES:any = [];
-
+    @Input() SUCURSALES:any = [];
 
        isLoading:      any;
        name:           string = '';

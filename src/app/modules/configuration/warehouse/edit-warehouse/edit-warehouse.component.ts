@@ -13,11 +13,14 @@ export class EditWarehouseComponent {
 
     @Output() WarehouseE: EventEmitter<any> = new EventEmitter();
     @Input() WAREHOUSE_SELECTED:any = [];
+    @Input() SUCURSALES:any = [];
+
 
        isLoading:      any;
        name:           string = '';
        address:        string = '';
        state:          string = '1';
+       sucursale_id:   string = '';
 
         constructor(
           public modal: NgbActiveModal,
@@ -31,7 +34,7 @@ export class EditWarehouseComponent {
           this.name       = this.WAREHOUSE_SELECTED.name;
           this.address    = this.WAREHOUSE_SELECTED.address;
           this.state      = this.WAREHOUSE_SELECTED.state;
-
+          this.sucursale_id = this.WAREHOUSE_SELECTED.sucursale_id;
         }
 
         store(){

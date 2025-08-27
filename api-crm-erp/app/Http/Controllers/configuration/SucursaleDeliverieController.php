@@ -18,12 +18,11 @@ class SucursaleDeliverieController extends Controller
         // You can implement the logic to fetch and return the list of branches (sucursal_deliverie$sucursales_deliverie)
      $search = $request->get("search");
 
-     $sucursale_deliverie = SucursaleDeliverie::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
-
+     $sucursales_deliverie = SucursaleDeliverie::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
 
         return response()->json([
-            "total"       => $sucursale_deliverie->total(),
-            "sucursale_deliverie" =>  $sucursale_deliverie->map(function ($sucursal) {
+            "total"       => $sucursales_deliverie->total(),
+            "sucursales_deliverie" =>  $sucursales_deliverie->map(function ($sucursal) {
                 return [
                     "id"      =>    $sucursal->id,
                     "name"    =>    $sucursal->name,
@@ -46,7 +45,7 @@ class SucursaleDeliverieController extends Controller
 
         if($is_exist_sucursale) {
             return response()->json([
-                "message" => "La sucursal ya existe",
+                "message" => "La sucursalDelivieries ya existe",
                 "status"  => false,
             ], 403);
         }
@@ -55,18 +54,18 @@ class SucursaleDeliverieController extends Controller
             "address" => "required|string|max:255",
         ]);
 
-        $sucursale = SucursaleDeliverie::create(
+        $sucursale_deliverie = SucursaleDeliverie::create(
             $request->all()
         );
 
         return response()->json([
-            "message" => "Sucursal creada correctamente",
+            "message" => "SucursalDeliveries Lugar de Entrega creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "name"       => $sucursale->name,
-                "address"    => $sucursale->address,
-                "state"      => $sucursale->state ?? 1,
-                "created_at" => $sucursale->created_at->format('Y-m-d H:i A'),
+                "name"       => $sucursale_deliverie->name,
+                "address"    => $sucursale_deliverie->address,
+                "state"      => $sucursale_deliverie->state ?? 1,
+                "created_at" => $sucursale_deliverie->created_at->format('Y-m-d H:i A'),
             ],
         ]);
     }
@@ -89,7 +88,7 @@ class SucursaleDeliverieController extends Controller
 
         if($is_exist_sucursale) {
             return response()->json([
-                "message" => "La sucursal ya existe",
+                "message" => "La sucursalDeliveries ya existe",
                 "status"  => false,
             ], 403);
         }
@@ -98,18 +97,18 @@ class SucursaleDeliverieController extends Controller
             "address" => "required|string|max:255",
         ]);
 
-        $sucursale = SucursaleDeliverie::findOrFail($id);
-        $sucursale->update($request->all());
+        $sucursale_deliverie = SucursaleDeliverie::findOrFail($id);
+        $sucursale_deliverie->update($request->all());
 
         return response()->json([
-            "message" => "Sucursal creada correctamente",
+            "message" => "SucursalDeliveries Lugar de entrega creada correctamente",
             "status"  => true,
             "sucursal" => [
-                "id"         => $sucursale->id,
-                "name"       => $sucursale->name,
-                "address"    => $sucursale->address,
-                "state"      => $sucursale->state ?? 1,
-                "created_at" => $sucursale->created_at->format('Y-m-d H:i A'),
+                "id"         => $sucursale_deliverie->id,
+                "name"       => $sucursale_deliverie->name,
+                "address"    => $sucursale_deliverie->address,
+                "state"      => $sucursale_deliverie->state ?? 1,
+                "created_at" => $sucursale_deliverie->created_at->format('Y-m-d H:i A'),
             ],
         ]);
     }
@@ -119,9 +118,9 @@ class SucursaleDeliverieController extends Controller
      */
     public function destroy(string $id)
     {
-         $sucursale = SucursaleDeliverie::findOrFail($id);
+         $sucursale_deliverie = SucursaleDeliverie::findOrFail($id);
          //validacion por prfoforma
-         $sucursale->delete();
+         $sucursale_deliverie->delete();
          return response()->json([
              "message" => "Sucursal eliminada correctamente",
              "status"  => true,

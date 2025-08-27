@@ -200,6 +200,7 @@ listSucursalDeliverie(page =1 , search:string = '') {
         'Authorization': 'Bearer ' + this.authservice.token  // ← corrección aquí
       });
       let URL = URL_SERVICIOS + 'sucursal_deliveries/'+ ID_SUCURSAL;
+      console.log(URL)
       return this.http.delete(URL,{ headers: headers }).pipe(
         finalize(() => this.isLoadingSubject.next(false))
       );

@@ -17,7 +17,7 @@ export class EditSucursalComponent {
        isLoading:      any;
        name:           string = '';
        address:        string = '';
-       state:         number = 1;
+       state:          number = 1;
 
         constructor(
           public modal: NgbActiveModal,

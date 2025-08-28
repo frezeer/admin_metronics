@@ -75,7 +75,7 @@ export class ListMethodPaymentComponent implements OnInit {
       deletePayment(PAYMENTS:any){
           const modalRef = this.ModalService.open(DeleteMethodPaymentComponent, {centered: true, size: 'md'});
            modalRef.componentInstance.PAYMENTS_SELECTED = PAYMENTS; //emite al hijo
-            modalRef.componentInstance.PaymentD.subscribe((sucursal:any) => {
+            modalRef.componentInstance.PaymentD.subscribe((payment:any) => {
            // this.ROLES.unshift(role);
              let INDEX = this.PAYMENTS.findIndex((payment:any) => payment.id === PAYMENTS.id);
              if(INDEX !== -1){

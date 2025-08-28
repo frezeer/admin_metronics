@@ -10,7 +10,8 @@ import { MethodPaymentService } from '../service/method-payment.service';
   styleUrls: ['./create-method-payment.component.scss']
 })
 export class CreateMethodPaymentComponent {
-@Output() paymentC: EventEmitter<any> = new EventEmitter();
+
+  @Output() PaymentC: EventEmitter<any> = new EventEmitter();
   @Input() payments:any = [];
 
      isLoading:      any;
@@ -58,7 +59,7 @@ export class CreateMethodPaymentComponent {
         this.toast.error('validacion', resp.message_text);
       }else{
         this.toast.success('Exito', 'Metodo de Pago creado correctamente');
-        this.paymentC.emit(resp);
+        this.PaymentC.emit(resp);
         this.modal.close();
       }
     });

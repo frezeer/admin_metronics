@@ -11,7 +11,7 @@ import { MethodPaymentService } from '../service/method-payment.service';
 })
 export class EditMethodPaymentComponent {
 
-      @Output() paymentE: EventEmitter<any> = new EventEmitter();
+      @Output() PaymentE: EventEmitter<any> = new EventEmitter();
       @Input() PAYMENTS_SELECTED : any = [];
 
          isLoading:      any;
@@ -65,7 +65,7 @@ export class EditMethodPaymentComponent {
             this.toast.error('validacion', resp.message_text);
           }else{
             this.toast.success('Exito', 'Metodo de pago editado correctamente');
-            this.paymentE.emit(resp);
+            this.PaymentE.emit(resp);
             this.modal.close();
           }
         });

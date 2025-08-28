@@ -13,7 +13,7 @@ export class DeleteWarehouseComponent {
 
 
   //emisores que vienen del componente padre en este caso ListRolesComponent
-       @Output() SucursalDeliverieD: EventEmitter<any> = new EventEmitter();
+       @Output() WarehouseD: EventEmitter<any> = new EventEmitter();
        @Input()  SUCURSAL_SELECTED_DELIVERIE: any; //EMITIR UN VALOR A ESTE COMPONENTE DESDE EL PADRE
 
         name:          string = '';
@@ -39,7 +39,7 @@ export class DeleteWarehouseComponent {
               this.toast.error('validacion', resp.message_text);
             }else{
               this.toast.success('Exito', 'Direccion de entrega eliminada correctamente');
-              this.SucursalDeliverieD.emit(resp);
+              this.WarehouseD.emit(resp);
               this.modal.close();
             }
 

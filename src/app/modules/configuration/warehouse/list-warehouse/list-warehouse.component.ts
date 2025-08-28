@@ -76,7 +76,7 @@ export class ListWarehouseComponent {
 
       deleteWarehouse(WAREHOUSE:any){
           const modalRef = this.ModalService.open(DeleteWarehouseComponent, {centered: true, size: 'md'});
-           modalRef.componentInstance.WAREHOUSE_SELECTED = WAREHOUSE; //emite al hijo
+           modalRef.componentInstance.SUCURSAL_SELECTED_DELIVERIE = WAREHOUSE; //emite al hijo
             modalRef.componentInstance.WarehouseD.subscribe((warehouse:any) => {
            // this.ROLES.unshift(role);
              let INDEX = this.WAREHOUSES.findIndex((warehouse:any) => warehouse.id === WAREHOUSE.id);

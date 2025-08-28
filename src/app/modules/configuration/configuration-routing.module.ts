@@ -14,6 +14,11 @@ const routes: Routes = [
        {
          path: 'lugar-de-entrega',
          loadChildren: () => import('./sucursal-deliveries/sucursal-deliveries.module').then((m) => m.SucursalDeliveriesModule),
+     },
+
+       {
+         path: 'metodo-de-pago',
+         loadChildren: () => import('./method-payment/method-payment.module').then((m) => m.MethodPaymentModule),
      }
 ];
 

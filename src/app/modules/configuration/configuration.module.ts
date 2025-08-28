@@ -5,10 +5,13 @@ import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { SucursalesModule } from './sucursales/sucursales.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { SucursalDeliveriesModule } from './sucursal-deliveries/sucursal-deliveries.module';
+import { MethodPaymentModule } from './method-payment/method-payment.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
 
 
   imports: [
@@ -18,7 +21,8 @@ import { SucursalDeliveriesModule } from './sucursal-deliveries/sucursal-deliver
 
     SucursalesModule,
     WarehouseModule,
-    SucursalDeliveriesModule
+    SucursalDeliveriesModule,
+    MethodPaymentModule
   ]
 })
 export class ConfigurationModule { }

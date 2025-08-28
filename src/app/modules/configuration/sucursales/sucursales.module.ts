@@ -17,7 +17,7 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
   declarations: [
     SucursalesComponent,
     CreateSucursalComponent,
-    CreateSucursalComponent,
+
     EditSucursalComponent,
     DeleteSucursalComponent,
     ListSucursalComponent

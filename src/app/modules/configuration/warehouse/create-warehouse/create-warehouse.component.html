@@ -59,6 +59,7 @@
                           placeholder="Select de Sucursal"
                           [(ngModel)]="sucursale_id"
                       >
+                      <option value="">NINGUNO</option>
                   <ng-container *ngFor="let sucursal of SUCURSALES">
                         <option [value]="sucursal.id" >{{sucursal.name}}</option>
                   </ng-container>

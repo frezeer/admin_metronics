@@ -17,9 +17,11 @@ export class ListMethodPaymentComponent implements OnInit {
 
       search: string = '';
       PAYMENTS:any = [];
+      method_payment_id: string = '';
       isLoading$:any;
       totalPages:  number = 0;
       currentPage: number = 1;
+
 
       constructor(
         public ModalService: NgbModal,
@@ -52,6 +54,7 @@ export class ListMethodPaymentComponent implements OnInit {
 
       createPayment() {
         const modalRef = this.ModalService.open(CreateMethodPaymentComponent, {centered: true, size: 'md'});
+            modalRef.componentInstance.METHOD_PAYMENTS = this.PAYMENTS.filter((method:any) => !method.method_payments.id); //emite al hijo
             modalRef.componentInstance.PaymentC.subscribe((payment:any) => {
             this.PAYMENTS.unshift(payment);
       });

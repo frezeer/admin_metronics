@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { SucursalService } from '../../sucursales/service/sucursal.service';
 import { MethodPaymentService } from '../service/method-payment.service';
 
 @Component({
@@ -12,11 +11,12 @@ import { MethodPaymentService } from '../service/method-payment.service';
 export class CreateMethodPaymentComponent {
 
   @Output() PaymentC: EventEmitter<any> = new EventEmitter();
-  @Input() payments:any = [];
+  @Input()  METHOD_PAYMENTS:any = [];
 
      isLoading:      any;
      name:           string = '';
      address:        string = '';
+     method_payment_id: string = '';
 
       constructor(
         public modal: NgbActiveModal,
@@ -46,7 +46,7 @@ export class CreateMethodPaymentComponent {
 
     let data = {
       name:        this.name,
-      address:     this.address
+      method_payment_id : this.method_payment_id,
     };
 
     console.log(data);
@@ -59,7 +59,7 @@ export class CreateMethodPaymentComponent {
         this.toast.error('validacion', resp.message_text);
       }else{
         this.toast.success('Exito', 'Metodo de Pago creado correctamente');
-        this.PaymentC.emit(resp);
+        this.PaymentC.emit(resp.method_payment);//query de store
         this.modal.close();
       }
     });

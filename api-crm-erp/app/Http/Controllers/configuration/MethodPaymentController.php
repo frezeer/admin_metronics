@@ -64,6 +64,7 @@ class MethodPaymentController extends Controller
             "status"  => true,
             "method_payment" => [
                 "name"                    => $method_pay->name,
+                "address"                 => $method_pay->address,
                 "state"                   => $method_pay->state ?? 1,
                 "created_at"              => $method_pay->created_at->format('Y-m-d H:i A'),
                 "method_payment_id"       => $method_pay->method_payment_id,

@@ -13,10 +13,11 @@ export class CreateMethodPaymentComponent {
   @Output() PaymentC: EventEmitter<any> = new EventEmitter();
   @Input()  METHOD_PAYMENTS:any = [];
 
-     isLoading:      any;
-     name:           string = '';
-     address:        string = '';
+     isLoading:         any;
+     name:              string = '';
+     address:           string = '';
      method_payment_id: string = '';
+
 
       constructor(
         public modal: NgbActiveModal,

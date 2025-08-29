@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { SucursalService } from '../../sucursales/service/sucursal.service';
 import { ClientSegmentService } from '../service/client-segment.service';
 
 @Component({
@@ -16,7 +15,7 @@ export class CreateClientSegmentComponent {
 
        isLoading:      any;
        name:           string = '';
-       address:        string = '';
+      // address:        string = '';
 
         constructor(
           public modal: NgbActiveModal,
@@ -37,15 +36,15 @@ export class CreateClientSegmentComponent {
             return false;
           }
 
-             if(!this.address){
-            this.toast.error('validacion', 'La direccion del segmento de cliente es obligatorio');
-            return false;
-          }
+          //    if(!this.address){
+          //   this.toast.error('validacion', 'La direccion del segmento de cliente es obligatorio');
+          //   return false;
+          // }
 
 
       let data = {
         name:        this.name,
-        address:     this.address
+       // address:     this.address
       };
 
       console.log(data);

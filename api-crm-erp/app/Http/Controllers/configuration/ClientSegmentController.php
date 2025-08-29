@@ -26,7 +26,6 @@ class ClientSegmentController extends Controller
                 return [
                     "id"      =>    $cliente->id,
                     "name"    =>    $cliente->name,
-                    "address" =>    $cliente->address,
                     "state"   =>    $cliente->state,
                     "created_at" => $cliente->created_at->format('Y-m-d H:i A'),
                 ];
@@ -55,7 +54,7 @@ class ClientSegmentController extends Controller
 
         $request->validate([
             "name"    => "required|string|max:255",
-            "address" => "required|string|max:255",
+
         ]);
 
         $client_segment = ClientSegment::create(
@@ -67,7 +66,6 @@ class ClientSegmentController extends Controller
             "status"  => true,
             "client_segment" => [
                 "name"       => $client_segment->name,
-                "address"    => $client_segment->address,
                 "state"      => $client_segment->state ?? 1,
                 "created_at" => $client_segment->created_at->format('Y-m-d H:i A'),
             ],
@@ -98,7 +96,7 @@ class ClientSegmentController extends Controller
         }
         $request->validate([
             "name"    => "required|string|max:255",
-            "address" => "required|string|max:255",
+
         ]);
 
         $client_segment= ClientSegment::findOrFail($id);
@@ -110,7 +108,6 @@ class ClientSegmentController extends Controller
             "client_segment" => [
                 "id"         => $client_segment->id,
                 "name"       => $client_segment->name,
-                "address"    => $client_segment->address,
                 "state"      => $client_segment->state ?? 1,
                 "created_at" => $client_segment->created_at->format('Y-m-d H:i A'),
             ],

@@ -19,7 +19,7 @@ export class CreateClientSegmentComponent {
 
         constructor(
           public modal: NgbActiveModal,
-          public clienteSegemntService: ClientSegmentService , // Assuming RolesService is injected here
+          public clientSegmentService: ClientSegmentService , // Assuming RolesService is injected here
           public toast: ToastrService,
         ) {
 
@@ -49,7 +49,7 @@ export class CreateClientSegmentComponent {
 
       console.log(data);
 
-       this.clienteSegemntService.RegisterClientSegment(data).subscribe((resp:any) => {
+       this.clientSegmentService.RegisterClientSegment(data).subscribe((resp:any) => {
 
         console.log(resp);
 

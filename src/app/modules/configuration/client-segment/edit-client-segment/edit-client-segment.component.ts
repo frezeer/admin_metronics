@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SucursalService } from '../../sucursales/service/sucursal.service';
+import { ClientSegmentService } from '../service/client-segment.service';
 
 @Component({
   selector: 'app-edit-client-segment',
@@ -21,7 +22,7 @@ export class EditClientSegmentComponent {
 
           constructor(
             public modal: NgbActiveModal,
-            public sucursalService: SucursalService , // Assuming RolesService is injected here
+            public clientSegmentService: ClientSegmentService , // Assuming RolesService is injected here
             public toast: ToastrService,
           ) {
 
@@ -42,22 +43,17 @@ export class EditClientSegmentComponent {
               return false;
             }
 
-               if(!this.address){
-              this.toast.error('validacion', 'La direccion es obligatorio');
-              return false;
-            }
 
 
 
         let data = {
           name:        this.name,
-          address:     this.address,
           state:       this.state,
         };
 
         console.log(data);
 
-         this.sucursalService.updateSucursal(this.CLIENTSEGMENT_SELECTED.id,data).subscribe((resp:any) => {
+         this.clientSegmentService.updateClientSegment(this.CLIENTSEGMENT_SELECTED.id,data).subscribe((resp:any) => {
 
           console.log(resp);
 

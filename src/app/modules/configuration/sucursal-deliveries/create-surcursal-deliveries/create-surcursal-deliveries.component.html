@@ -27,48 +27,43 @@
              <!--begin::Scroll-->
             <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                 <!--begin::Input group-->
+
+
                 <div class="fv-row mb-7">
                     <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">Nombre Direccion de Entrega: </label>
+                    <label class="required fw-bold fs-6 mb-2">Nombre Lugar de Entrega: </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nombre de la Direccion de Entrega" [(ngModel)]="name" />
+                    <input type="text"
+                    name="name" class="form-control form-control-solid mb-3 mb-lg-0"
+                    placeholder="Nombre de el lugar de Entrega"
+                    [(ngModel)]="name"
+                    #nameField="ngModel"
+                    required
+                    maxlength="100"/>
                     <!--end::Input-->
+                     <div *ngIf="nameField.invalid && nameField.touched" class="text-danger mt-1">
+                      <small *ngIf="nameField.errors?.['required']">
+                       El nombre de el Lugar de Entrega es obligatorio.
+                    </small>
+                </div>
                 </div>
 
-                <div class="fv-row mb-7">
-                    <!--begin::Label-->
-                    <div class="table-responsive w-100">
-                      <!--begin::Label-->
-
-                    <!--end::Label-->
-                    <!--begin::Input-->
-                    <div class="d-flex flex-column mb-8">
+                <div class="d-flex flex-column mb-8">
                         <label class="required fs-6 fw-semibold mb-2">Direccion (Opcional)</label>
-                        <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="address" name="address" placeholder="Direccion de el lugar de Entrega"></textarea>
-                    </div>
+                        <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="address"
+                         name="address" placeholder="Direccion de Entrega"
+                         #addressField="ngModel"
+                         required
+                         maxlength="100"
+                         ></textarea>
+                         <div *ngIf="addressField.invalid && addressField.touched" class="text-danger mt-1">
+                              <small *ngIf="addressField.errors?.['required']">
+                                la direccion de Entrega requerido
+                            </small>
+                        </div>
 
                     </div>
-                  <!--
-                    <br>
-
-                <label class="required fw-bold fs-6 mb-2">Estado:</label>
-                <div class="form-check">
-
-                  <input class="form-check-input" type="radio" name="state" (click)="state = 'ACTIVO'" id="state1">
-                  <label class="form-check-label" for="state1">
-                    Activo
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="state" (click)="state = 'INACTIVO'" id="state2">
-                  <label class="form-check-label" for="state2">
-                    Inactivo
-                  </label>
-                </div>
-                  <br> -->
-
-                </div>
             </div>
             <!--end::Scroll-->
 

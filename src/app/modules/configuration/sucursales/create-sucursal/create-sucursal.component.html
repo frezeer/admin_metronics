@@ -32,8 +32,19 @@
                     <label class="required fw-bold fs-6 mb-2">Nombre Sucursal: </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nombre de la Sucursal" [(ngModel)]="name" />
+                    <input type="text"
+                    name="name" class="form-control form-control-solid mb-3 mb-lg-0"
+                    placeholder="Nombre de la Sucursal"
+                    [(ngModel)]="name"
+                    #nameField="ngModel"
+                    required
+                    maxlength="100"/>
                     <!--end::Input-->
+                     <div *ngIf="nameField.invalid && nameField.touched" class="text-danger mt-1">
+                      <small *ngIf="nameField.errors?.['required']">
+                       El nombre de la Sucursal es obligatorio.
+                    </small>
+                </div>
                 </div>
 
                 <div class="fv-row mb-7">
@@ -41,12 +52,29 @@
                     <div class="table-responsive w-100">
                       <!--begin::Label-->
 
+
+
                     <!--end::Label-->
                     <!--begin::Input-->
                     <div class="d-flex flex-column mb-8">
                         <label class="required fs-6 fw-semibold mb-2">Direccion (Opcional)</label>
-                        <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="address" name="address" placeholder="Direccion de la Sucursal"></textarea>
+                        <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="address"
+                         name="address" placeholder="Direccion de la Sucursal"
+                         #addressField="ngModel"
+                         required
+                         maxlength="100"
+                         ></textarea>
+                         <div *ngIf="addressField.invalid && addressField.touched" class="text-danger mt-1">
+                              <small *ngIf="addressField.errors?.['required']">
+                                la direccion del método de pago es requerido
+                            </small>
+                        </div>
+
                     </div>
+
+
+
+
 
                     </div>
                   <!--

@@ -83,10 +83,18 @@
             [(ngModel)]="address"
             placeholder="Ingrese la dirección del método de pago"
             maxlength="500"
+             #addressField="ngModel"
+            required
+             maxlength="100"
           ></textarea>
           <div class="form-text">
             Máximo 500 caracteres
           </div>
+            <div *ngIf="addressField.invalid && addressField.touched" class="text-danger mt-1">
+                              <small *ngIf="addressField.errors?.['required']">
+                                la direccion del método de pago es requerido
+                            </small>
+                        </div>
         </div>
         <!--end::Address input-->
 

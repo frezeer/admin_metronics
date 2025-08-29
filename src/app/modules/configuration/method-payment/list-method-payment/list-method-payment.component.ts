@@ -65,6 +65,7 @@ export class ListMethodPaymentComponent implements OnInit {
       {
           const modalRef = this.ModalService.open(EditMethodPaymentComponent, {centered: true, size: 'md'});
            modalRef.componentInstance.PAYMENTS_SELECTED = PAYMENTS; //emite al hijo
+           modalRef.componentInstance.METHOD_PAYMENTS = this.PAYMENTS.filter((method:any) => !method.method_payment_id); //emite al hijo
            modalRef.componentInstance.PaymentE.subscribe((payment:any) => {
 
             let INDEX = this.PAYMENTS.findIndex((payment:any) => payment.id === PAYMENTS.id);

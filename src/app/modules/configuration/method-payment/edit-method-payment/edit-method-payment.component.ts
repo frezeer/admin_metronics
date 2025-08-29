@@ -13,11 +13,13 @@ export class EditMethodPaymentComponent {
 
       @Output() PaymentE: EventEmitter<any> = new EventEmitter();
       @Input() PAYMENTS_SELECTED : any = [];
+      @Input() METHOD_PAYMENTS :   any = [];
 
          isLoading:      any;
          name:           string = '';
          address:        string = '';
          state:          number = 1;
+         method_payment_id : string = '';
 
           constructor(
             public modal: NgbActiveModal,
@@ -29,9 +31,9 @@ export class EditMethodPaymentComponent {
 
           ngOnInit(): void {
 
-            this.name       = this.PAYMENTS_SELECTED.name;
-            this.address    = this.PAYMENTS_SELECTED.method_payment_id;
-            this.state      = this.PAYMENTS_SELECTED.state;
+            this.name                 = this.PAYMENTS_SELECTED.name;
+            this.method_payment_id    = this.METHOD_PAYMENTS.method_payment_id;
+            this.state                = this.PAYMENTS_SELECTED.state;
 
           }
 
@@ -52,6 +54,7 @@ export class EditMethodPaymentComponent {
         let data = {
           name:        this.name,
           address:     this.address,
+          method_payment_id: this.method_payment_id,
           state:       this.state,
         };
 
@@ -65,7 +68,7 @@ export class EditMethodPaymentComponent {
             this.toast.error('validacion', resp.message_text);
           }else{
             this.toast.success('Exito', 'Metodo de pago editado correctamente');
-            this.PaymentE.emit(resp);
+            this.PaymentE.emit(resp.method_payment); //emite al padre
             this.modal.close();
           }
         });

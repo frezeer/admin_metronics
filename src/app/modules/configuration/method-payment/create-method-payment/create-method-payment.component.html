@@ -106,12 +106,12 @@
                       <select
                           class="form-control form-select-solid fw-bolder"
                           name="method_payment_id"
-                          placeholder="Select STATE"
+                          placeholder="Select el Metodo de Pago a crear"
                           [(ngModel)]="method_payment_id"
                       >
                       <option value="">NINGUNO</option>
-                      <ng-container *ngFor="let method of METHOD_PAYMENTS">
-                          <option [value]="method.id">{{ method.name }}</option>
+                      <ng-container *ngFor="let METHOD_PAYMENT of METHOD_PAYMENTS">
+                          <option [value]="METHOD_PAYMENT.id">{{ METHOD_PAYMENT.name }}</option>
                       </ng-container>
                 </select>
             </div>

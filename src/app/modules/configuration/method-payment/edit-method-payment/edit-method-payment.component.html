@@ -1,13 +1,15 @@
-<!--begin::Modal content CREATE-->
+<!--begin::Modal content EDIT-->
 <div class="modal-content">
     <!--begin::Modal header-->
-    <div class="modal-header" id="kt_modal_add_user_header">
+    <div class="modal-header" id="kt_modal_edit_payment_method_header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Editar Metodo de Pago</h2>
-
+        <h2 class="fw-bolder">Editar Método de Pago</h2>
         <!--end::Modal title-->
         <!--begin::Close-->
-        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss()">
+        <div class="btn btn-icon btn-sm btn-active-icon-primary"
+             data-kt-payment-method-modal-action="close"
+             (click)="modal.dismiss()"
+             aria-label="Cerrar modal">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
             <span class="svg-icon svg-icon-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -20,66 +22,181 @@
         <!--end::Close-->
     </div>
     <!--end::Modal header-->
+
     <!--begin::Modal body-->
     <div class="modal-body scroll-y mx-5 my-7">
         <!--begin::Form-->
-        <form id="kt_modal_add_user_form" class="form" action="#">
-             <!--begin::Scroll-->
-            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-                <!--begin::Input group-->
+        <form id="kt_modal_edit_payment_method_form"
+              class="form"
+              #paymentMethodForm="ngForm"
+              (ngSubmit)="store()"
+              novalidate>
+
+            <!--begin::Scroll-->
+            <div class="d-flex flex-column scroll-y me-n7 pe-7"
+                 id="kt_modal_edit_payment_method_scroll"
+                 data-kt-scroll="true"
+                 data-kt-scroll-activate="{default: false, lg: true}"
+                 data-kt-scroll-max-height="auto"
+                 data-kt-scroll-dependencies="#kt_modal_edit_payment_method_header"
+                 data-kt-scroll-wrappers="#kt_modal_edit_payment_method_scroll"
+                 data-kt-scroll-offset="300px">
+
+                <!--begin::Input group - Nombre-->
                 <div class="fv-row mb-7">
                     <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">Nombre del Metodo de Pago: </label>
+                    <label for="payment_method_name" class="required fw-bold fs-6 mb-2">
+                        Nombre del Método de Pago:
+                    </label>
                     <!--end::Label-->
+
                     <!--begin::Input-->
-                    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nombre de la Sucursal" [(ngModel)]="name" />
+                    <input type="text"
+                           id="payment_method_name"
+                           name="name"
+                           class="form-control form-control-solid mb-3 mb-lg-0"
+                           placeholder="Ingrese el nombre del método de pago"
+                           [(ngModel)]="name"
+                           #nameField="ngModel"
+                           required
+                           minlength="2"
+                           maxlength="100"
+                           [class.is-invalid]="nameField.invalid && (nameField.dirty || nameField.touched)"
+                           [class.is-valid]="nameField.valid && (nameField.dirty || nameField.touched)" />
                     <!--end::Input-->
-                </div>
 
+                    <!--begin::Error messages-->
+                    <div class="invalid-feedback" *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)">
+                        <div *ngIf="nameField.errors?.['required']">El nombre del método de pago es requerido.</div>
+                        <div *ngIf="nameField.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</div>
+                        <div *ngIf="nameField.errors?.['maxlength']">El nombre no puede exceder 100 caracteres.</div>
+                    </div>
+                    <!--end::Error messages-->
+                </div>
+                <!--end::Input group - Nombre-->
+
+                <!--begin::Input group - Estado-->
                 <div class="fv-row mb-7">
                     <!--begin::Label-->
-                    <div class="table-responsive w-100">
-                      <!--begin::Label-->
-
+                    <label for="payment_method_state" class="required fw-bold fs-6 mb-2">
+                        Estado:
+                    </label>
                     <!--end::Label-->
-                    <!--begin::Input-->
-                    <div class="d-flex flex-column mb-8">
-                        <label class="required fs-6 fw-semibold mb-2">Direccion (Opcional)</label>
-                        <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="address" name="address" placeholder="Direccion Del Metodo de Pago"></textarea>
+
+                    <!--begin::Select-->
+                    <select id="payment_method_state"
+                            class="form-control form-select-solid fw-bolder"
+                            name="state"
+                            [(ngModel)]="state"
+                            #stateField="ngModel"
+                            required
+                            [class.is-invalid]="stateField.invalid && (stateField.dirty || stateField.touched)"
+                            [class.is-valid]="stateField.valid && (stateField.dirty || stateField.touched)">
+                        <option value="" disabled>-- Seleccione el estado --</option>
+                        <option value="1">ACTIVO</option>
+                        <option value="2">INACTIVO</option>
+                    </select>
+                    <!--end::Select-->
+
+                    <!--begin::Error messages-->
+                    <div class="invalid-feedback" *ngIf="stateField.invalid && (stateField.dirty || stateField.touched)">
+                        <div *ngIf="stateField.errors?.['required']">Debe seleccionar un estado.</div>
                     </div>
-
-
-                    <!---------------------------codigo select------------------------------------>
-
-              </div>
-                  <div class="fv-row mb-7">
-                    <label class="required fw-bold fs-6 mb-2">Selec. STATE</label>
-                      <select
-                          class="form-control form-select-solid fw-bolder"
-                          name="state"
-                          placeholder="Select STATE"
-                          [(ngModel)]="state"
-                      >
-                    <option value="1" >ACTIVO</option>
-                    <option value="2" >INACTIVO</option>
-                </select>
-            </div>
-
-              <!---------------------------codigo select------------------------------------>
-
+                    <!--end::Error messages-->
                 </div>
+                <!--end::Input group - Estado-->
+
+                <!--begin::Input group - Dirección-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label for="payment_method_address" class="fs-6 fw-semibold mb-2">
+                        Dirección (Opcional):
+                    </label>
+                    <!--end::Label-->
+
+                    <!--begin::Input-->
+                    <textarea id="payment_method_address"
+                              class="form-control form-control-solid"
+                              rows="3"
+                              name="address"
+                              [(ngModel)]="address"
+                              #addressField="ngModel"
+                              maxlength="500"
+                              placeholder="Ingrese la dirección del método de pago (opcional)"
+                              [class.is-invalid]="addressField.invalid && (addressField.dirty || addressField.touched)"
+                              [class.is-valid]="addressField.valid && addressField.dirty && address?.trim()"></textarea>
+                    <!--end::Input-->
+
+                    <!--begin::Character counter-->
+                    <div class="form-text text-muted" *ngIf="address">
+                        {{ address.length }}/500 caracteres
+                    </div>
+                    <!--end::Character counter-->
+
+                    <!--begin::Error messages-->
+                    <div class="invalid-feedback" *ngIf="addressField.invalid && (addressField.dirty || addressField.touched)">
+                        <div *ngIf="addressField.errors?.['maxlength']">La dirección no puede exceder 500 caracteres.</div>
+                    </div>
+                    <!--end::Error messages-->
+                </div>
+                <!--end::Input group - Dirección-->
+
+                <!--begin::Input group - Tipo de Método de Pago-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label for="method_payment_select" class="required fw-bold fs-6 mb-2">
+                        Tipo de Método de Pago:
+                    </label>
+                    <!--end::Label-->
+
+                    <!--begin::Select-->
+                    <select id="method_payment_select"
+                            class="form-control form-select-solid fw-bolder"
+                            name="method_payment_id"
+                            [(ngModel)]="method_payment_id"
+                            #methodPaymentField="ngModel"
+                            required
+                            [class.is-invalid]="methodPaymentField.invalid && (methodPaymentField.dirty || methodPaymentField.touched)"
+                            [class.is-valid]="methodPaymentField.valid && (methodPaymentField.dirty || methodPaymentField.touched)">
+                        <option value="" disabled>-- Seleccione un tipo de método de pago --</option>
+                        <ng-container *ngFor="let METHOD_PAYMENT of METHOD_PAYMENTS">
+                            <option [value]="METHOD_PAYMENT.id">{{ METHOD_PAYMENT.name }}</option>
+                        </ng-container>
+                    </select>
+                    <!--end::Select-->
+
+                    <!--begin::Error messages-->
+                    <div class="invalid-feedback" *ngIf="methodPaymentField.invalid && (methodPaymentField.dirty || methodPaymentField.touched)">
+                        <div *ngIf="methodPaymentField.errors?.['required']">Debe seleccionar un tipo de método de pago.</div>
+                    </div>
+                    <!--end::Error messages-->
+                </div>
+                <!--end::Input group - Tipo de Método de Pago-->
+
             </div>
             <!--end::Scroll-->
 
             <!--begin::Actions-->
             <div class="text-center pt-15">
-                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
-                    <span class="indicator-label">Registrar</span>
+                <button type="button"
+                        class="btn btn-light me-3"
+                        (click)="modal.dismiss()"
+                        [disabled]="isLoading | async">
+                    Cancelar
+                </button>
 
-                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
-                    <!-- <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+                <button type="submit"
+                        class="btn btn-primary"
+                        [disabled]="paymentMethodForm.invalid || (isLoading | async)"
+                        data-kt-payment-method-modal-action="submit">
+                    <span class="indicator-label" *ngIf="!(isLoading | async)">
+                        Guardar Cambios
+                    </span>
+
+                    <span class="indicator-progress" *ngIf="isLoading | async">
+                        Guardando...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
                 </button>
             </div>
             <!--end::Actions-->
@@ -88,6 +205,4 @@
     </div>
     <!--end::Modal body-->
 </div>
-<!--end::Modal content CREATE-->
-
-
+<!--end::Modal content EDIT-->

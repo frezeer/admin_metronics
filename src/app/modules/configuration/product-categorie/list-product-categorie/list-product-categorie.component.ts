@@ -73,7 +73,7 @@ export class ListProductCategorieComponent {
       deleteProductCategorie(PCATEGORIES:any){
           const modalRef = this.ModalService.open(DeleteProductCategorieComponent, {centered: true, size: 'md'});
            modalRef.componentInstance.CATEGORIES_SELECTED = PCATEGORIES; //emite al hijo
-            modalRef.componentInstance.PcategoriesD.subscribe((pcategories:any) => {
+            modalRef.componentInstance.PCategoriesD.subscribe((pcategories:any) => {
            // this.ROLES.unshift(role);
              let INDEX = this.PRODUCTS_CATEGORIES.findIndex((pcategories:any) => pcategories.id === PCATEGORIES.id);
              if(INDEX !== -1){

@@ -95,14 +95,24 @@
                         </td>
 
                         <td>
-                          <div class="d-flex">
+                        <div class="d-flex align-items-center">
                           <div class="symbol symbol-50px me-5">
-                              <img [src]="PCATEGORIE?.imagen" [alt]="PCATEGORIE?.name" class="" alt="">
+                            <img [src]="PCATEGORIE?.imagen"
+                                [alt]="PCATEGORIE?.name"
+                                class="rounded"
+                                style="width: 50px; height: 50px; object-fit: cover;"
+                                loading="lazy"
+                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
                           </div>
-                          <P>{{ PCATEGORIE?.name }}</P>
+                          <div class="ms-3">
+                            <h6 class="mb-0">{{ PCATEGORIE?.name }}</h6>
+                            <small class="text-muted" *ngIf="PCATEGORIE?.description">
+                              {{ PCATEGORIE.description | slice:0:50 }}{{ PCATEGORIE.description?.length > 50 ? '...' : '' }}
+                            </small>
+                          </div>
+                        </div>
+                      </td>
 
-                          </div>
-                        </td>
 
                         <td>
 

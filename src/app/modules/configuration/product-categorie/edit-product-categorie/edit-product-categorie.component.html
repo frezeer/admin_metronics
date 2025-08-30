@@ -3,7 +3,7 @@
     <!--begin::Modal header-->
     <div class="modal-header" id="kt_modal_add_user_header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Edit Sucursal</h2>
+        <h2 class="fw-bolder">Edit Categoria del Producto</h2>
 
         <!--end::Modal title-->
         <!--begin::Close-->
@@ -29,7 +29,7 @@
                 <!--begin::Input group-->
                 <div class="fv-row mb-7">
                     <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">Nombre Sucursal: </label>
+                    <label class="required fw-bold fs-6 mb-2">Nombre de La Categoria del Producto: </label>
                     <!--end::Label-->
                     <!--begin::Input-->
                     <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nombre de la Sucursal" [(ngModel)]="name" />
@@ -39,14 +39,28 @@
                 <div class="fv-row mb-7">
                     <!--begin::Label-->
                     <div class="table-responsive w-100">
-                      <!--begin::Label-->
 
-                    <!--end::Label-->
                     <!--begin::Input-->
-                    <div class="d-flex flex-column mb-8">
-                        <label class="required fs-6 fw-semibold mb-2">Direccion (Opcional)</label>
-                        <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="address" name="address" placeholder="Direccion de la Sucursal"></textarea>
-                    </div>
+
+                      <pre>{{ CATEGORIES_SELECTED | json }}</pre>
+                       <td>
+                        <div class="d-flex align-items-center">
+                          <div class="symbol symbol-50px me-5">
+                            <img [src]="CATEGORIES_SELECTED?.imagen"
+                                [alt]="CATEGORIES_SELECTED?.name"
+                                class="rounded"
+                                style="width: 50px; height: 50px; object-fit: cover;"
+                                loading="lazy"
+                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+                          </div>
+                          <div class="ms-3">
+                            <h6 class="mb-0">{{ CATEGORIES_SELECTED?.name }}</h6>
+                            <small class="text-muted" *ngIf="CATEGORIES_SELECTED?.description">
+                              {{ CATEGORIES_SELECTED.description | slice:0:50 }}{{ CATEGORIES_SELECTED.description?.length > 50 ? '...' : '' }}
+                            </small>
+                          </div>
+                        </div>
+                      </td>
 
               </div>
                   <div class="fv-row mb-7">
@@ -57,8 +71,11 @@
                           placeholder="Select STATE"
                           [(ngModel)]="state"
                       >
-                    <option value="1" >ACTIVO</option>
-                    <option value="2" >INACTIVO</option>
+                    <ng-container>
+                      <option [value]="CATEGORIES_SELECTED?.state" >{{ CATEGORIES_SELECTED?.name }}</option>
+                    </ng-container>
+
+
                 </select>
             </div>
 

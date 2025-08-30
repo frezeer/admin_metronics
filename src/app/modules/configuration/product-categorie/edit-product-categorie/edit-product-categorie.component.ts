@@ -12,11 +12,11 @@ import { ProductCategorieService } from '../service/product-categorie.service';
 export class EditProductCategorieComponent {
 
       @Output() PCategoriesE: EventEmitter<any> = new EventEmitter();
-      @Input()  PCATEGORIES_SELECTED : any = [];
+      @Input()  CATEGORIES_SELECTED : any = [];
 
          isLoading:      any;
          name:           string = '';
-         address:        string = '';
+         imagen:         string = '';
          state:          number = 1;
 
           constructor(
@@ -29,9 +29,9 @@ export class EditProductCategorieComponent {
 
           ngOnInit(): void {
 
-            this.name       = this.PCATEGORIES_SELECTED.name;
-            this.address    = this.PCATEGORIES_SELECTED.address;
-            this.state      = this.PCATEGORIES_SELECTED.state;
+            this.name       = this.CATEGORIES_SELECTED.name;
+            this.imagen     = this.CATEGORIES_SELECTED.imagen;
+            this.state      = this.CATEGORIES_SELECTED.state;
 
           }
 
@@ -42,7 +42,7 @@ export class EditProductCategorieComponent {
               return false;
             }
 
-               if(!this.address){
+               if(!this.imagen){
               this.toast.error('validacion', 'La direccion es obligatorio');
               return false;
             }
@@ -51,13 +51,13 @@ export class EditProductCategorieComponent {
 
         let data = {
           name:        this.name,
-          address:     this.address,
+          imagen:     this.imagen,
           state:       this.state,
         };
 
         console.log(data);
 
-         this.productCategorieService.updateProductCategories(this.PCATEGORIES_SELECTED.id,data).subscribe((resp:any) => {
+         this.productCategorieService.updateProductCategories(this.CATEGORIES_SELECTED.id,data).subscribe((resp:any) => {
 
           console.log(resp);
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Configuration\MethodPaymentController;
 use App\Http\Controllers\configuration\SucursaleController;
 use App\Http\Controllers\Configuration\SucursaleDeliverieController;
 use App\Http\Controllers\Configuration\ClientSegmentController;
+use App\Http\Controllers\Configuration\ProductCategorieController;
 use App\Http\Controllers\Configuration\WarehouseController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserAccessContorller;
@@ -59,5 +60,8 @@ Route::group([
     Route::resource("sucursal_deliveries", SucursaleDeliverieController::class);
     Route::resource("Method_payments",     MethodPaymentController::class);
     Route::resource("client_segments",     ClientSegmentController::class);
+    //para la actualizacion de la imagen
+    Route::post('/product_categories/{id}',  [ProductCategorieController::class, 'update']);
+    Route::resource("product_categories",     ProductCategorieController::class);
 
 });

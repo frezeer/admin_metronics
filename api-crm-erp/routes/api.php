@@ -60,6 +60,7 @@ Route::group([
     Route::resource("sucursal_deliveries", SucursaleDeliverieController::class);
     Route::resource("Method_payments",     MethodPaymentController::class);
     Route::resource("client_segments",     ClientSegmentController::class);
+
     //para la actualizacion de la imagen
     Route::post('/product_categories/{id}',  [ProductCategorieController::class, 'update']);
     Route::resource("product_categories",     ProductCategorieController::class);

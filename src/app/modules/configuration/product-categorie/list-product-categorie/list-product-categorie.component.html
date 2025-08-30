@@ -95,7 +95,18 @@
                         </td>
 
                         <td>
-                                <ng-container [ngSwitch]="PCATEGORIE.state">
+                          <div class="d-flex">
+                          <div class="symbol symbol-50px me-5">
+                              <img [src]="PCATEGORIE?.imagen" [alt]="PCATEGORIE?.name" class="" alt="">
+                          </div>
+                          <P>{{ PCATEGORIE?.name }}</P>
+
+                          </div>
+                        </td>
+
+                        <td>
+
+                          <ng-container [ngSwitch]="PCATEGORIE.state">
                                   <span class="badge badge-light-success"   *ngSwitchCase="1">Activo</span>
                                   <span class="badge badge-light-danger"    *ngSwitchCase="2">Inactivo</span>
                                   <span class="badge badge-light-warning"   *ngSwitchCase="3">Suspendido</span>

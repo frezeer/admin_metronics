@@ -7,9 +7,9 @@ import { AuthService } from 'src/app/modules/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductCategoriesService {
+export class ProductCategorieService {
 
-    isLoading$: Observable<boolean>;
+  isLoading$: Observable<boolean>;
     isLoadingSubject: BehaviorSubject<boolean>;
 
     constructor(
@@ -21,8 +21,8 @@ export class ProductCategoriesService {
       this.isLoading$ = this.isLoadingSubject.asObservable();
      }
 
-    RegisterProductCategorie(data: any) {
-    console.log('RegisterProductCategorie', data);
+    RegisterProductCategories(data: any) {
+    console.log('RegisterProductCategories', data);
     console.log('Token', this.authservice.token);
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({
@@ -35,8 +35,8 @@ export class ProductCategoriesService {
     );
     }
 
-  listProductCategorie(page =1 , search:string = '') {
-      console.log('Token de List ListSucursalesDeliverie', this.authservice.token);
+  listProductCategories(page =1 , search:string = '') {
+      console.log('Token de List ListProductCategorieses', this.authservice.token);
       this.isLoadingSubject.next(true);
       let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
       let URL = URL_SERVICIOS + 'product_categories?page=' + page + '&search=' + search;
@@ -46,10 +46,10 @@ export class ProductCategoriesService {
   }
 
 
-    updateProductCategorie(ID_PRODUCT_CATEGORIE:string,data:any) {
+    updateProductCategories(ID_PRODUCT_CATEGORIES:string,data:any) {
       this.isLoadingSubject.next(true);
       let headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authservice.token});
-      let URL = URL_SERVICIOS+"product_categories/"+ID_PRODUCT_CATEGORIE;
+      let URL = URL_SERVICIOS+"ProductCategorieses/"+ID_PRODUCT_CATEGORIES;
       return this.http.put(URL,data,{headers: headers}).pipe(
         finalize(() => this.isLoadingSubject.next(false))
       );
@@ -120,9 +120,9 @@ export class ProductCategoriesService {
 
      } */
 
-    updateSucursalesDeliverie(ID_PRODUCT_CATEGORIE: number, data: any) {
-    console.log('=== INICIO UPDATE SUCURSAL ===');
-    console.log('ID_ROLE:', ID_PRODUCT_CATEGORIE);
+    updateProductCategorieses(ID_PRODUCT_CATEGORIES: number, data: any) {
+    console.log('=== INICIO UPDATE ProductCategories ===');
+    console.log('ID_ROLE:', ID_PRODUCT_CATEGORIES);
     console.log('Data enviada:', data);
 
     // Verificar token antes de enviar
@@ -132,10 +132,10 @@ export class ProductCategoriesService {
     this.isLoadingSubject.next(true);
 
     // Validar datos de entrada
-    if (!ID_PRODUCT_CATEGORIE || ID_PRODUCT_CATEGORIE <= 0) {
-      console.error('ID_PRODUCT_CATEGORIE inválido:', ID_PRODUCT_CATEGORIE);
+    if (!ID_PRODUCT_CATEGORIES || ID_PRODUCT_CATEGORIES <= 0) {
+      console.error('ID_PRODUCT_CATEGORIES inválido:', ID_PRODUCT_CATEGORIES);
       this.isLoadingSubject.next(false);
-      return of({ error: true, message_text: 'ID de ProductCategorie inválido' });
+      return of({ error: true, message_text: 'ID de rol inválido' });
     }
 
     if (!data || !data.name) {
@@ -151,7 +151,7 @@ export class ProductCategoriesService {
       'Authorization': 'Bearer ' + (this.authservice.token || '')
     });
 
-    const URL = URL_SERVICIOS + 'product_categories/' + ID_PRODUCT_CATEGORIE;
+    const URL = URL_SERVICIOS + 'product_categories/' + ID_PRODUCT_CATEGORIES;
 
     console.log('URL completa:', URL);
     console.log('Headers:', headers);
@@ -194,13 +194,12 @@ export class ProductCategoriesService {
     );
   }
 
-     deleteProductCategorie(ID_PRODUCT_CATEGORIE: string){
+     deleteProductCategories(ID_PRODUCT_CATEGORIES: string){
         this.isLoadingSubject.next(true);
         let headers = new HttpHeaders({
           'Authorization': 'Bearer ' + this.authservice.token  // ← corrección aquí
         });
-        let URL = URL_SERVICIOS + 'product_categories/'+ ID_PRODUCT_CATEGORIE;
-        console.log(URL)
+        let URL = URL_SERVICIOS + 'product_categories/'+ ID_PRODUCT_CATEGORIES;
         return this.http.delete(URL,{ headers: headers }).pipe(
           finalize(() => this.isLoadingSubject.next(false))
         );

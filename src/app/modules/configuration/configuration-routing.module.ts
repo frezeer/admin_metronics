@@ -25,13 +25,10 @@ const routes: Routes = [
        {
          path: 'segmento-de-cliente',
          loadChildren: () => import('./client-segment/client-segment.module').then((m) => m.ClientSegmentModule),
-       }
-
-        ,
-
+       },
        {
          path: 'categorias-de-producto',
-         loadChildren: () => import('./product-categories/product-categories.module').then((m) => m.ProductCategoriesModule),
+         loadChildren: () => import('./product-categorie/product-categorie.module').then((m) => m.ProductCategorieModule),
        }
 ];
 

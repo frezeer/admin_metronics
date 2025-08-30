@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProductCategoriesRoutingModule } from './product-categories-routing.module';
-import { ProductCategoriesComponent } from './product-categories.component';
+import { ProductCategorieRoutingModule } from './product-categorie-routing.module';
+import { ProductCategorieComponent } from './product-categorie.component';
 import { CreateProductCategorieComponent } from './create-product-categorie/create-product-categorie.component';
 import { EditProductCategorieComponent } from './edit-product-categorie/edit-product-categorie.component';
-import { DeleteProductCategorieComponent } from './delete-product-categorie/delete-product-categorie.component';
 import { ListProductCategorieComponent } from './list-product-categorie/list-product-categorie.component';
+import { DeleteProductCategorieComponent } from './delete-product-categorie/delete-product-categorie.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,15 +15,16 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 
 @NgModule({
   declarations: [
-    ProductCategoriesComponent,
+    ProductCategorieComponent,
     CreateProductCategorieComponent,
     EditProductCategorieComponent,
-    DeleteProductCategorieComponent,
-    ListProductCategorieComponent
+    ListProductCategorieComponent,
+    DeleteProductCategorieComponent
   ],
   imports: [
     CommonModule,
-    ProductCategoriesRoutingModule,
+    ProductCategorieRoutingModule,
+
 
     HttpClientModule,
     FormsModule,
@@ -32,8 +33,6 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     InlineSVGModule,
     NgbModalModule,
     NgbPaginationModule,
-
-
   ]
 })
-export class ProductCategoriesModule { }
+export class ProductCategorieModule { }

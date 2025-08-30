@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { SucursalDeliverieService } from '../service/sucursal-deliverie.service';
 import { CreateSurcursalDeliveriesComponent } from '../create-surcursal-deliveries/create-surcursal-deliveries.component';
 import { EditSurcursalDeliveriesComponent } from '../edit-surcursal-deliveries/edit-surcursal-deliveries.component';

@@ -8,10 +8,10 @@ use App\Http\Controllers\configuration\SucursaleController;
 use App\Http\Controllers\Configuration\SucursaleDeliverieController;
 use App\Http\Controllers\Configuration\ClientSegmentController;
 use App\Http\Controllers\Configuration\ProductCategorieController;
+use App\Http\Controllers\Configuration\ProviderController;
 use App\Http\Controllers\Configuration\WarehouseController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserAccessContorller;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -64,5 +64,8 @@ Route::group([
     //para la actualizacion de la imagen
     Route::post('/product_categories/{id}',  [ProductCategorieController::class, 'update']);
     Route::resource("product_categories",     ProductCategorieController::class);
+
+    Route::post('/providers/{id}',  [ProviderController::class, 'update']);
+    Route::resource("providers",     ProviderController::class);
 
 });

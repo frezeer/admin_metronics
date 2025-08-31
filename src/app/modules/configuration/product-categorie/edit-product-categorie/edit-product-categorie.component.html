@@ -3,7 +3,7 @@
     <!--begin::Modal header-->
     <div class="modal-header" id="kt_modal_add_user_header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Edit Categoria del Producto</h2>
+        <h2 class="fw-bolder">Edit Categoria del Producto {{  CATEGORIES_SELECTED.name }}</h2>
 
         <!--end::Modal title-->
         <!--begin::Close-->
@@ -32,7 +32,7 @@
                     <label class="required fw-bold fs-6 mb-2">Nombre de La Categoria del Producto: </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nombre de la Sucursal" [(ngModel)]="name" />
+                    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Nombre de la Categoria" [(ngModel)]="name" />
                     <!--end::Input-->
                 </div>
 
@@ -42,7 +42,7 @@
 
                     <!--begin::Input-->
 
-                      <pre>{{ CATEGORIES_SELECTED | json }}</pre>
+                      <!-- <pre>{{ CATEGORIES_SELECTED | json }}</pre> -->
                        <td>
                         <div class="d-flex align-items-center">
                           <div class="symbol symbol-50px me-5">
@@ -62,6 +62,17 @@
                         </div>
                       </td>
 
+                  <div class="col-6">
+                        <label class="required fw-bold fs-6 mb-2">Imagen de la Categoria del Producto:</label>
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
+                        <label class="custom-file-label" for="customFile">Selecciona la Imagen</label>
+                        </div>
+                        <div *ngIf="imagen_previsualiza">
+                            <img [src]="imagen_previsualiza" style="height: 100px;" alt="">
+                        </div>
+                    </div>
+
               </div>
                   <div class="fv-row mb-7">
                     <label class="required fw-bold fs-6 mb-2">Selec. STATE</label>
@@ -72,7 +83,8 @@
                           [(ngModel)]="state"
                       >
                     <ng-container>
-                      <option [value]="CATEGORIES_SELECTED?.state" >{{ CATEGORIES_SELECTED?.name }}</option>
+                      <option value="1">Activo</option>
+                      <option value="2">Inactivo</option>
                     </ng-container>
 
 
@@ -87,7 +99,7 @@
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
                 <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
-                    <span class="indicator-label">Registrar</span>
+                    <span class="indicator-label">Editar</span>
 
                     <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
                     <!-- <span class="indicator-progress">Please wait...

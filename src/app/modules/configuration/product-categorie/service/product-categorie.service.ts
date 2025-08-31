@@ -49,8 +49,8 @@ export class ProductCategorieService {
     updateProductCategories(ID_PRODUCT_CATEGORIES:string,data:any) {
       this.isLoadingSubject.next(true);
       let headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authservice.token});
-      let URL = URL_SERVICIOS+"ProductCategorieses/"+ID_PRODUCT_CATEGORIES;
-      return this.http.put(URL,data,{headers: headers}).pipe(
+      let URL = URL_SERVICIOS+"product_categories/"+ID_PRODUCT_CATEGORIES;
+      return this.http.post(URL,data,{headers: headers}).pipe(
         finalize(() => this.isLoadingSubject.next(false))
       );
     }

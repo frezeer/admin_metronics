@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { SucursalService } from '../../sucursales/service/sucursal.service';
+
 import { ProductCategorieService } from '../service/product-categorie.service';
 
 @Component({
@@ -18,6 +18,8 @@ export class EditProductCategorieComponent {
          name:           string = '';
          imagen:         string = '';
          state:          number = 1;
+         file_name:            any;
+         imagen_previsualiza : any;
 
           constructor(
             public modal: NgbActiveModal,
@@ -35,6 +37,36 @@ export class EditProductCategorieComponent {
 
           }
 
+           processFile($event: any) {
+              const file = $event.target.files[0];
+
+              // Validar si hay archivo seleccionado
+              if (!file) {
+                return;
+              }
+
+              // Validar tipo de archivo
+              if (!file.type.startsWith('image/')) {
+                this.toast.warning("WARN", "El archivo no es una imagen válida");
+                return;
+              }
+
+              // Validar tamaño (ejemplo: máximo 5MB)
+              if (file.size > 5 * 1024 * 1024) {
+                this.toast.warning("WARN", "El archivo es muy grande. Máximo 5MB");
+                return;
+              }
+
+              this.file_name = file;
+              let reader = new FileReader();
+              reader.readAsDataURL(this.file_name);
+              reader.onloadend = () => this.imagen_previsualiza = reader.result;
+              reader.onerror = () => {
+                this.toast.error("ERROR", "Error al procesar la imagen");
+              };
+            }
+
+
           store(){
 
             if(!this.name){
@@ -42,30 +74,32 @@ export class EditProductCategorieComponent {
               return false;
             }
 
-               if(!this.imagen){
-              this.toast.error('validacion', 'La direccion es obligatorio');
+          if(!this.imagen){
+         this.toast.error('validacion', 'La imagen es obligatorio');
               return false;
-            }
+        }
 
 
+        let formData = new FormData();
 
-        let data = {
-          name:        this.name,
-          imagen:     this.imagen,
-          state:       this.state,
-        };
+        formData.append("name", this.name);
+        if(!this.imagen){
+          formData.append("imagen", this.file_name);
+        }
 
-        console.log(data);
+        formData.append("state", this.state+"");
 
-         this.productCategorieService.updateProductCategories(this.CATEGORIES_SELECTED.id,data).subscribe((resp:any) => {
+        console.log(formData);
+
+         this.productCategorieService.updateProductCategories(this.CATEGORIES_SELECTED.id,formData).subscribe((resp:any) => {
 
           console.log(resp);
 
           if(resp.message == 403){
             this.toast.error('validacion', resp.message_text);
           }else{
-            this.toast.success('Exito', 'Sucursal creada correctamente');
-            this.PCategoriesE.emit(resp);
+            this.toast.success('Exito', 'La Categoria se edito correctamente');
+            this.PCategoriesE.emit(resp.categories);
             this.modal.close();
           }
         });

@@ -65,13 +65,13 @@ class UserAccessContorller extends Controller
                    "message_tex" => "EL USUARIO YA EXISTE"
             ]);
        }
-       if($request->hasFile("imagen")){
-            $path = Storage::putFile("users",$request->file("imagen"));
-            $request->request->add(["avatar" => $path]);
+       if($request->hasFile("users_imagen")){
+            $path = Storage::putFile("users",$request->file("users_imagen"));
+            $request->merge(["avatar" => $path]);
        }
 
        if($request->password){
-            $request->request->add(["password", bcrypt($request->password)]);
+            $request->merge(["password", bcrypt($request->password)]);
        }
 
        $role = Role::findOrFail($request->role_id);
@@ -128,11 +128,11 @@ class UserAccessContorller extends Controller
             Storage::delete($user->avatar);
         }
             $path = Storage::putFile("users",$request->file("imagen"));
-            $request->request->add(["avatar" => $path]);
+            $request->merge(["avatar" => $path]);
        }
 
        if($request->password){
-            $request->request->add(["password", bcrypt($request->password)]);
+            $request->merge(["password", bcrypt($request->password)]);
        }
 
 
@@ -264,16 +264,16 @@ public function update(Request $request, string $id)
 
         $user = User::findOrFail($id);
 
-        if($request->hasFile("imagen")){
+        if($request->hasFile("users_imagen")){
             if($user->avatar){
                 Storage::delete($user->avatar);
             }
-            $path = Storage::putFile("users",$request->file("imagen"));
-            $request->request->add(["avatar" => $path]);
+            $path = Storage::putFile("users",$request->file("users_imagen"));
+            $request->add(["avatar" => $path]);
         }
 
         if($request->password){
-            $request->request->add(["password" => bcrypt($request->password)]);
+            $request->add(["password" => bcrypt($request->password)]);
         }
 
         if($request->role_id != $user->role_id){

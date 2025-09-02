@@ -83,9 +83,9 @@ export class EditProductCategorieComponent {
         let formData = new FormData();
 
         formData.append("name", this.name);
-        if(!this.imagen){
-          formData.append("imagen", this.file_name);
-        }
+
+          formData.append("categorie_imagen", this.file_name);
+
 
         formData.append("state", this.state+"");
 

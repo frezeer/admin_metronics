@@ -49,14 +49,14 @@ class ProductCategorieController extends Controller
         if($is_exist_product_categories)
         {
             return response()->json([
-                "message" => "El categoria del product ya existe",
+                "message" => "La categoria del producto ya existe",
                 "status"  => false,
             ], 403);
         }
 
         if($request->hasFile('categorie_imagen')){
             $path = Storage::putFile("categorie", $request->file("categorie_imagen"));
-            $request->add(['imagen' => $path]);//imagen es igual al del modelo
+            $request->merge(['imagen' => $path]);//imagen es igual al del modelo
         }
 
         $request->validate([
@@ -116,7 +116,7 @@ class ProductCategorieController extends Controller
             }
 
             $path = Storage::putFile("categorie", $request->file("categorie_imagen"));
-            $request->add(['imagen' => $path]);//imagen es igual al del modelo
+            $request->merge(['imagen' => $path]);//imagen es igual al del modelo
         }
 
         $categorie->update($request->all());

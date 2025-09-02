@@ -10,7 +10,7 @@ import { ProductCategorieService } from '../service/product-categorie.service';
 })
 export class CreateProductCategorieComponent {
 
-        @Output() ProductCategorieC: EventEmitter<any> = new EventEmitter();
+        @Output() PcategoriesC: EventEmitter<any> = new EventEmitter();
         @Input()  client_segment:any = [];
 
            isLoading:      any;
@@ -74,9 +74,11 @@ export class CreateProductCategorieComponent {
                 this.toast.error('Validación', 'La imagen es obligatoria');
                 return false;
               }
+
+
               let formData = new FormData();
               formData.append("name",    this.name);
-              formData.append("imagen",  this.file_name);
+              formData.append("categorie_imagen",  this.file_name);//NOMBRE DEL REQUESTFILE(categorie_imagen) O HASFILE(categorie_imagen)
 
 
           console.log(formData);
@@ -89,7 +91,7 @@ export class CreateProductCategorieComponent {
               this.toast.error('validacion', resp.message_text);
             }else{
               this.toast.success('Exito', 'Categoria del Producto creada correctamente');
-              this.ProductCategorieC.emit(resp.categories);//respuesta del backend
+              this.PcategoriesC.emit(resp.categories);//respuesta del backend
               this.modal.close();
             }
           });

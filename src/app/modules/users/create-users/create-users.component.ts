@@ -102,6 +102,7 @@ export class CreateUsersComponent {
       }
 
       let formData = new FormData();
+      formData.append("users_imagen", this.file_name);
       formData.append("name",    this.name);
       formData.append("surname", this.surname);
       formData.append("phone",   this.phone);
@@ -113,17 +114,18 @@ export class CreateUsersComponent {
       if(this.address){
           formData.append("address", this.address);
       }
-      formData.append("image",     this.file_name);
+
       formData.append("password",  this.password);
-      formData.append("avatar",    this.file_name);
+
 
       console.log(formData);
 
        this.userService.RegisterUser(formData).subscribe((resp:any) => {
+        //respuesta de loque te regresa el backend
         console.log(resp);
 
         if(resp.message == 403){
-          this.toast.error('validacion', resp.message_text);
+          this.toast.error('validacion', resp.message_tex);
         }else{
           this.toast.success('Exito', 'el usario se ha registrado correctamente');
           this.UserC.emit(resp.users);

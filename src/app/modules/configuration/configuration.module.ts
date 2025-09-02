@@ -9,13 +9,11 @@ import { MethodPaymentModule } from './method-payment/method-payment.module';
 import { ClientSegmentModule } from './client-segment/client-segment.module';
 
 import { ProductCategorieModule } from './product-categorie/product-categorie.module';
+import { ProviderModule } from './provider/provider.module';
 
 
 @NgModule({
   declarations: [
-
-
-
   ],
 
 
@@ -29,8 +27,8 @@ import { ProductCategorieModule } from './product-categorie/product-categorie.mo
     SucursalDeliveriesModule,
     MethodPaymentModule,
     ClientSegmentModule,
-    ProductCategorieModule
-
+    ProductCategorieModule,
+    ProviderModule,
 
   ]
 })

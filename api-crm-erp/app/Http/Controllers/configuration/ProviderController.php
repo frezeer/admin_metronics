@@ -23,7 +23,7 @@ class ProviderController extends Controller
 
         return response()->json([
             "total"       => $provider->total(),
-            "product_provider" => $provider->map(function ($_provider) {
+            "providers" => $provider->map(function ($_provider) {
                 return [
                     "id"           =>    $_provider->id,
                     "full_name"    =>    $_provider->full_name,
@@ -60,12 +60,16 @@ class ProviderController extends Controller
 
         if($request->hasFile('provider_imagen')){
             $path = Storage::putFile("providers", $request->file("provider_imagen"));
-            $request->add(['imagen' => $path]);//imagen es igual al del modelo
+            $request->merge(['imagen' => $path]);//imagen es igual al del modelo
         }
 
         $request->validate([
             "full_name"    => "required|string|max:255",
-
+            "rfc"          => "required|string|max:255",
+            "address"      => "required|string|max:255",
+            "phone"        => "required|string|max:255",
+            "email"        => "required|string|max:255",
+            "state"        => "required|string|max:255 "
         ]);
 
         $_provider = Provider::create(
@@ -75,7 +79,7 @@ class ProviderController extends Controller
         return response()->json([
             "message" => "categoria del producto creada correctamente",
             "status"  => true,
-            "provider" => [
+            "providers" => [
                 "full_name"  => $_provider->full_name,
                 "rfc"        => $_provider->rfc,
                 "address"    => $_provider->address,
@@ -125,7 +129,7 @@ class ProviderController extends Controller
             }
 
             $path = Storage::putFile("providers", $request->file("provider_imagen"));
-            $request->add(['imagen' => $path]);//imagen es igual al del modelo
+            $request->merge(['imagen' => $path]);//imagen es igual al del modelo
         }
 
         $_provider->update($request->all());
@@ -133,7 +137,7 @@ class ProviderController extends Controller
         return response()->json([
             "message" => "El proveedor ha sido editado correctamente",
             "status"  => true,
-            "provider" => [
+            "providers" => [
                 "full_name"  => $_provider->full_name,
                 "rfc"        => $_provider->rfc,
                 "address"    => $_provider->address,

@@ -21,7 +21,7 @@ export class ProviderService {
     }
 
     RegisterProvider(data: any) {
-      console.log('RegisterUser', data);
+      console.log('RegisterProvider', data);
       console.log('Token', this.authservice.token);
       this.isLoadingSubject.next(true);
       let headers = new HttpHeaders({

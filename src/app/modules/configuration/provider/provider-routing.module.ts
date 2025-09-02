@@ -4,6 +4,7 @@ import { ProviderComponent } from './provider.component';
 import { ListProviderComponent } from './list-provider/list-provider.component';
 
 const routes: Routes = [{
+
   path:'',
   component: ProviderComponent,
 
@@ -11,8 +12,6 @@ const routes: Routes = [{
 
     path:'list',
     component: ListProviderComponent,
-
-
   },
  ]
 }];

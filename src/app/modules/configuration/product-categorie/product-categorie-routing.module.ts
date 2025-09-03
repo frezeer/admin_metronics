@@ -4,8 +4,10 @@ import { ProductCategorieComponent } from './product-categorie.component';
 import { ListProductCategorieComponent } from './list-product-categorie/list-product-categorie.component';
 
 const routes: Routes = [{
+
+
   path: '',
-  component: ProductCategorieComponent,
+  component:  ProductCategorieComponent,
 
   children: [{
     path: 'list',

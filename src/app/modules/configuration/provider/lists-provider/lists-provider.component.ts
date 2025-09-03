@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-
-import { ProviderService } from '../service/provider.service';
 import { CreateProviderComponent } from '../create-provider/create-provider.component';
-import { EditProviderComponent } from '../edit-provider/edit-provider.component';
 import { DeleteProviderComponent } from '../delete-provider/delete-provider.component';
+import { EditProviderComponent } from '../edit-provider/edit-provider.component';
+import { ProviderService } from '../service/provider.service';
 
 @Component({
-  selector: 'app-list-provider',
-  templateUrl: './list-provider.component.html',
-  styleUrls: ['./list-provider.component.scss']
+  selector: 'app-lists-provider',
+  templateUrl: './lists-provider.component.html',
+  styleUrls: ['./lists-provider.component.scss']
 })
-export class ListProviderComponent {
 
+
+export class ListsProviderComponent {
 
         search: string = '';
-        PROVIDERS:any = [];
+        PROVIDERS: any = [];
+        //PROVIDERS: Provider[] = [];
         isLoading$:any;
         totalPages:  number = 0;
         currentPage: number = 1;
@@ -55,13 +55,13 @@ export class ListProviderComponent {
         });
       }
 
-        editProvider(PROVIDERS:any)
+        editProvider(PROVIDER:any)
         {
             const modalRef = this.ModalService.open(EditProviderComponent, {centered: true, size: 'md'});
-             modalRef.componentInstance.PROVIDERS_SELECTED = PROVIDERS; //emite al hijo
+             modalRef.componentInstance.PROVIDERS_SELECTED = PROVIDER; //emite al hijo
              modalRef.componentInstance.ProviderE.subscribe((provider:any) => {
 
-              let INDEX = this.PROVIDERS.findIndex((provider:any) => provider.id === PROVIDERS.id);
+              let INDEX = this.PROVIDERS.findIndex((provider:any) => provider.id === PROVIDER.id);
                if(INDEX !== -1){
                 this.PROVIDERS[INDEX] = provider;
               }
@@ -69,15 +69,16 @@ export class ListProviderComponent {
          }
 
 
-        deleteProvider(PROVIDERS:any){
+        deleteProvider(PROVIDER:any){
             const modalRef = this.ModalService.open(DeleteProviderComponent, {centered: true, size: 'md'});
-             modalRef.componentInstance.PROVIDERS_SELECTED = PROVIDERS; //emite al hijo
+             modalRef.componentInstance.PROVIDERS_SELECTED = PROVIDER; //emite al hijo
               modalRef.componentInstance.ProviderD.subscribe((provider:any) => {
              // this.ROLES.unshift(role);
-               let INDEX = this.PROVIDERS.findIndex((provider:any) => provider.id === PROVIDERS.id);
+               let INDEX = this.PROVIDERS.findIndex((provider:any) => provider.id === PROVIDER.id);
                if(INDEX !== -1){
                this.PROVIDERS.splice(INDEX,1);
                }
            });
          }
+
 }

@@ -7,13 +7,14 @@ import { WarehouseModule } from './warehouse/warehouse.module';
 import { SucursalDeliveriesModule } from './sucursal-deliveries/sucursal-deliveries.module';
 import { MethodPaymentModule } from './method-payment/method-payment.module';
 import { ClientSegmentModule } from './client-segment/client-segment.module';
-
 import { ProductCategorieModule } from './product-categorie/product-categorie.module';
 import { ProviderModule } from './provider/provider.module';
 
 
+
 @NgModule({
   declarations: [
+
   ],
 
 
@@ -28,7 +29,7 @@ import { ProviderModule } from './provider/provider.module';
     MethodPaymentModule,
     ClientSegmentModule,
     ProductCategorieModule,
-    ProviderModule,
+    ProviderModule
 
   ]
 })

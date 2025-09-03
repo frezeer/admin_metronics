@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/modules/auth';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProviderService {
 
     isLoading$: Observable<boolean>;
@@ -32,7 +33,6 @@ export class ProviderService {
         finalize(() => this.isLoadingSubject.next(false))
       );
     }
-
 
 
     listProviders(page = 1 , search:string = '') {

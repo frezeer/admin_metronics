@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores - Mejorado</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom styles for the improved component */
+        .table-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            z-index: 10;
+        }
+
+        .search-input {
+            padding-left: 40px;
+        }
+
+        .provider-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .badge-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .action-buttons .btn {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .table-responsive {
+            position: relative;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+
+            .provider-info {
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container-fluid py-4">
+        <div class="card table-container">
+            <!-- Card Header -->
+            <div class="card-header border-0 py-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h4 class="card-title mb-0">Gestión de Proveedores</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-end gap-3">
+                            <!-- Search Input -->
+                            <div class="search-container">
+                                <i class="bi bi-search search-icon"></i>
+                                <input
+                                    type="text"
+                                    id="searchInput"
+                                    class="form-control search-input"
+                                    placeholder="Buscar proveedores..."
+                                    style="width: 250px;">
+                            </div>
+
+                            <!-- Add Provider Button -->
+                            <button type="button" class="btn btn-primary" onclick="createProvider()">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Agregar Proveedor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body p-0">
+                <div class="table-responsive position-relative">
+                    <!-- Loading Overlay -->
+                    <div class="loading-overlay d-none" id="loadingOverlay">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                    </div>
+
+                    <table class="table table-hover align-middle mb-0" id="providersTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="border-0 ps-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="selectAll">
+                                    </div>
+                                </th>
+                                <th class="border-0" style="min-width: 200px;">Proveedor</th>
+                                <th class="border-0">RFC</th>
+                                <th class="border-0">Email</th>
+                                <th class="border-0">Teléfono</th>
+                                <th class="border-0">Estado</th>
+                                <th class="border-0">Fecha de Registro</th>
+                                <th class="border-0 text-end pe-4" style="width: 120px;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="providersTableBody">
+                            <!-- Providers will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <!-- Empty State -->
+                    <div class="empty-state d-none" id="emptyState">
+                        <i class="bi bi-inbox display-1 text-muted"></i>
+                        <h5 class="mt-3 text-muted">No se encontraron proveedores</h5>
+                        <p class="text-muted">Agrega tu primer proveedor para comenzar.</p>
+                        <button class="btn btn-primary" onclick="createProvider()">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Agregar Proveedor
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center p-4 border-top">
+                    <div class="text-muted">
+                        Mostrando <span id="currentRange">1-10</span> de <span id="totalCount">0</span> proveedores
+                    </div>
+
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0" id="paginationNav">
+                            <!-- Pagination will be generated by JavaScript -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Sample data - replace with your actual data source
+        let PROVIDERS = [
+            {
+                id: 1,
+                full_name: "Tecnología Avanzada S.A. de C.V.",
+                rfc: "TAV950125ABC",
+                email: "contacto@tecavanzada.com",
+                phone: "+52 55 1234-5678",
+                state: 1,
+                created_at: "2024-01-15",
+                imagen: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop&crop=face",
+                address: "Av. Reforma 123, Col. Centro, Ciudad de México"
+            },
+            {
+                id: 2,
+                full_name: "Servicios Integrales del Norte",
+                rfc: "SIN860310DEF",
+                email: "info@sernorte.com",
+                phone: "+52 81 9876-5432",
+                state: 2,
+                created_at: "2024-02-20",
+                imagen: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face",
+                address: "Blvd. Constitución 456, Monterrey, N.L."
+            },
+            {
+                id: 3,
+                full_name: "Construcciones y Materiales GHI",
+                rfc: "CMG920715GHI",
+                email: "ventas@cmghi.com",
+                phone: "+52 33 5555-7777",
+                state: 1,
+                created_at: "2024-03-10",
+                imagen: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+                address: "Calzada Independencia 789, Guadalajara, Jal."
+            }
+        ];
+
+        let currentPage = 1;
+        let pageSize = 10;
+        let searchTerm = '';
+
+        // Initialize the component
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            renderProviders();
+        });
+
+        function setupEventListeners() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            searchInput.addEventListener('input', function(e) {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    searchTerm = e.target.value.toLowerCase();
+                    currentPage = 1;
+                    renderProviders();
+                }, 300);
+            });
+
+            // Select all functionality
+            document.getElementById('selectAll').addEventListener('change', function(e) {
+                const checkboxes = document.querySelectorAll('tbody .form-check-input');
+                checkboxes.forEach(cb => cb.checked = e.target.checked);
+            });
+        }
+
+        function getFilteredProviders() {
+            if (!searchTerm) return PROVIDERS;
+
+            return PROVIDERS.filter(provider =>
+                provider.full_name.toLowerCase().includes(searchTerm) ||
+                provider.rfc.toLowerCase().includes(searchTerm) ||
+                provider.email.toLowerCase().includes(searchTerm) ||
+                provider.phone.includes(searchTerm)
+            );
+        }
+
+        function renderProviders() {
+            const tbody = document.getElementById('providersTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const filteredProviders = getFilteredProviders();
+
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = startIndex + pageSize;
+            const paginatedProviders = filteredProviders.slice(startIndex, endIndex);
+
+            if (paginatedProviders.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.classList.remove('d-none');
+                return;
+            } else {
+                emptyState.classList.add('d-none');
+            }
+
+            tbody.innerHTML = paginatedProviders.map(provider => `
+                <tr>
+                    <td class="ps-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="${provider.id}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center provider-info">
+                            <img
+                                src="${provider.imagen || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'}"
+                                alt="${provider.full_name}"
+                                class="provider-avatar me-3"
+                                onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'"
+                                loading="lazy">
+                            <div>
+                                <h6 class="mb-0">${provider.full_name || 'N/A'}</h6>
+                                ${provider.address ? `<small class="text-muted">${provider.address.length > 50 ? provider.address.substring(0, 50) + '...' : provider.address}</small>` : ''}
+                            </div>
+                        </div>
+                    </td>
+                    <td><code class="text-muted">${provider.rfc || 'N/A'}</code></td>
+                    <td>
+                        <a href="mailto:${provider.email}" class="text-decoration-none">
+                            ${provider.email || 'N/A'}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="tel:${provider.phone}" class="text-decoration-none">
+                            ${provider.phone || 'N/A'}
+                        </a>
+                    </td>
+                    <td>
+                        ${getStatusBadge(provider.state)}
+                    </td>
+                    <td>
+                        <small class="text-muted">
+                            ${formatDate(provider.created_at) || 'N/A'}
+                        </small>
+                    </td>
+                    <td class="pe-4">
+                        <div class="action-buttons d-flex gap-1 justify-content-end">
+                            <button
+                                class="btn btn-outline-primary btn-sm"
+                                onclick="editProvider(${provider.id})"
+                                title="Editar proveedor">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button
+                                class="btn btn-outline-danger btn-sm"
+                                onclick="deleteProvider(${provider.id})"
+                                title="Eliminar proveedor">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            updatePagination(filteredProviders.length);
+        }
+
+        function getStatusBadge(state) {
+            switch(state) {
+                case 1:
+                    return '<span class="badge bg-success badge-status">Activo</span>';
+                case 2:
+                    return '<span class="badge bg-danger badge-status">Inactivo</span>';
+                case 3:
+                    return '<span class="badge bg-warning badge-status">Suspendido</span>';
+                default:
+                    return '<span class="badge bg-secondary badge-status">N/A</span>';
+            }
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return null;
+            try {
+                return new Date(dateString).toLocaleDateString('es-MX', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            } catch {
+                return dateString;
+            }
+        }
+
+        function updatePagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / pageSize);
+            const currentRange = document.getElementById('currentRange');
+            const totalCount = document.getElementById('totalCount');
+            const paginationNav = document.getElementById('paginationNav');
+
+            // Update range display
+            const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+            const endItem = Math.min(currentPage * pageSize, totalItems);
+            currentRange.textContent = `${startItem}-${endItem}`;
+            totalCount.textContent = totalItems;
+
+            // Generate pagination
+            let paginationHTML = '';
+
+            // Previous button
+            paginationHTML += `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <button class="page-link" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                </li>
+            `;
+
+            // Page numbers
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHTML += `
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <button class="page-link" onclick="changePage(${i})">${i}</button>
+                    </li>
+                `;
+            }
+
+            // Next button
+            paginationHTML += `
+                <li class="page-item ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}">
+                    <button class="page-link" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </li>
+            `;
+
+            paginationNav.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(getFilteredProviders().length / pageSize);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderProviders();
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.remove('d-none');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('d-none');
+        }
+
+        // Action functions - replace with your actual implementations
+        function createProvider() {
+            alert('Función para crear nuevo proveedor');
+        }
+
+        function editProvider(id) {
+            const provider = PROVIDERS.find(p => p.id === id);
+            alert(`Editando proveedor: ${provider?.full_name}`);
+        }
+
+        function deleteProvider(id) {
+            if (confirm('¿Está seguro de que desea eliminar este proveedor?')) {
+                PROVIDERS = PROVIDERS.filter(p => p.id !== id);
+                renderProviders();
+            }
+        }
+    </script>
+</body>
+</html>

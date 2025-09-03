@@ -19,7 +19,8 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     CreateSurcursalDeliveriesComponent,
     EditSurcursalDeliveriesComponent,
     DeleteSurcursalDeliveriesComponent,
-    ListSurcursalDeliveriesComponent
+    ListSurcursalDeliveriesComponent,
+
   ],
   imports: [
     CommonModule,

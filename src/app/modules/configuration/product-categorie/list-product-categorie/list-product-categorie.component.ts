@@ -14,7 +14,7 @@ import { DeleteProductCategorieComponent } from '../delete-product-categorie/del
 export class ListProductCategorieComponent {
 
    search: string = '';
-      PRODUCTS_CATEGORIES:any = [];
+      PRODUCTS_CATEGORIES: any = [];
       isLoading$:any;
       totalPages:  number = 0;
       currentPage: number = 1;

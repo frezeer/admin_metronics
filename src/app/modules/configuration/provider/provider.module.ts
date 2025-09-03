@@ -5,12 +5,12 @@ import { ProviderRoutingModule } from './provider-routing.module';
 import { ProviderComponent } from './provider.component';
 import { CreateProviderComponent } from './create-provider/create-provider.component';
 import { EditProviderComponent } from './edit-provider/edit-provider.component';
-import { ListProviderComponent } from './list-provider/list-provider.component';
 import { DeleteProviderComponent } from './delete-provider/delete-provider.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { ListsProviderComponent } from './lists-provider/lists-provider.component';
 
 
 @NgModule({
@@ -18,8 +18,8 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     ProviderComponent,
     CreateProviderComponent,
     EditProviderComponent,
-    ListProviderComponent,
-    DeleteProviderComponent
+    DeleteProviderComponent,
+    ListsProviderComponent
   ],
   imports: [
     CommonModule,

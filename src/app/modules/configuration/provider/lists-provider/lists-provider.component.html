@@ -20,7 +20,7 @@
             <!--begin::Filter-->
             <!--begin::Add customer-->
             <button type="button" class="btn btn-primary" (click)="createProvider()">
-            + Add Empresa Proveedores
+            + Add Proveedor
             </button>
             <!--end::Add customer-->
          </div>
@@ -64,27 +64,10 @@
                            class="dt-column-title" role="button">Proveedor</span><span
                            class="dt-column-order"></span>
                      </th>
-                        <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1"
-                        colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
-                        <span
-                           class="dt-column-title" role="button">RFC</span><span
-                           class="dt-column-order"></span>
-                     </th>
-
-                        <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1"
-                        colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
-                        <span
-                           class="dt-column-title" role="button">Email</span><span
-                           class="dt-column-order"></span>
-                     </th>
-
-                        <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1"
-                        colspan="1" aria-label="Customer Name: Activate to sort" tabindex="0">
-                        <span
-                           class="dt-column-title" role="button">Phone</span><span
-                           class="dt-column-order"></span>
-                     </th>
-
+                       <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="2" rowspan="1"
+                        colspan="1" aria-label="Email: Activate to sort" tabindex="0"><span
+                        class="dt-column-title" role="button">Direccion</span><span
+                        class="dt-column-order"></span></th>
                      <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="2" rowspan="1"
                         colspan="1" aria-label="Email: Activate to sort" tabindex="0"><span
                         class="dt-column-title" role="button">Estado</span><span
@@ -104,8 +87,6 @@
                      </th>
                   </tr>
                </thead>
-
-               {{ PROVIDERS | json }}
                <tbody class="fw-semibold text-gray-600">
                   <!-- Fixed: Added null check with *ngIf -->
                   <ng-container *ngFor="let PROVIDER of PROVIDERS">
@@ -115,48 +96,19 @@
                            <!-- Fixed: Added safe navigation operator -->
                            {{ PROVIDER?.full_name || 'N/A' }}
                         </td>
-
                         <td>
-                           <!-- Fixed: Added safe navigation operator -->
-                           {{ PROVIDER?.rfc || 'N/A' }}
+                         <!-- Fixed: Added safe navigation operator -->
+                         <span style="width: 550px !important; display: block;" > {{ PROVIDER.address }} </span>
                         </td>
-
-                         <td>
-                           <!-- Fixed: Added safe navigation operator -->
-                           {{ PROVIDER?.email || 'N/A' }}
-                        </td>
-                         <td>
-                           <!-- Fixed: Added safe navigation operator -->
-                           {{ PROVIDER?.phone || 'N/A' }}
-                        </td>
-
-                        <td>
-                        <div class="d-flex align-items-center">
-                          <div class="symbol symbol-50px me-5">
-                            <img [src]="PROVIDER?.imagen"
-                                [alt]="PROVIDER?.name"
-                                class="rounded"
-                                style="width: 50px; height: 50px; object-fit: cover;"
-                                loading="lazy"
-                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
-                          </div>
-                          <div class="ms-3">
-                            <h6 class="mb-0">{{ PROVIDER?.imagen }}</h6>
-                            <small class="text-muted" *ngIf="PROVIDER?.address">
-                              {{ PROVIDER.address | slice:0:50 }}{{ PROVIDER.address?.length > 50 ? '...' : '' }}
-                            </small>
-                          </div>
-                        </div>
-                      </td>
 
 
                         <td>
-                          <ng-container [ngSwitch]="PROVIDER.state">
+                                <ng-container [ngSwitch]="PROVIDER?.state">
                                   <span class="badge badge-light-success"   *ngSwitchCase="1">Activo</span>
                                   <span class="badge badge-light-danger"    *ngSwitchCase="2">Inactivo</span>
                                   <span class="badge badge-light-warning"   *ngSwitchCase="3">Suspendido</span>
                                   <span class="badge badge-light-secondary" *ngSwitchDefault>N/A</span>
-                            </ng-container>
+                                </ng-container>
                         </td>
 
                         <td>

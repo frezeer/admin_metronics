@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class UserAccessContorller extends Controller
@@ -269,11 +268,11 @@ public function update(Request $request, string $id)
                 Storage::delete($user->avatar);
             }
             $path = Storage::putFile("users",$request->file("users_imagen"));
-            $request->add(["avatar" => $path]);
+            $request->merge(["avatar" => $path]);
         }
 
         if($request->password){
-            $request->add(["password" => bcrypt($request->password)]);
+            $request->merge(["password" => bcrypt($request->password)]);
         }
 
         if($request->role_id != $user->role_id){

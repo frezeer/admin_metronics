@@ -111,8 +111,9 @@ export class EditUsersComponent {
    if(this.password){
      formData.append("password",this.password);
    }
+
     if(this.file_name){
-      formData.append("imagen",this.file_name);
+      formData.append("users_imagen",this.file_name); //users_imagen como lo maneja en el storage
     }
 
     console.log('Debug →', {
@@ -133,11 +134,14 @@ export class EditUsersComponent {
         console.log(`${key}: ${value}`);
     }
 
-    this.usersService.updateUser(this.USER_SELECTED.id,formData).subscribe((resp:any) => {
+    this.usersService.updateUsers(this.USER_SELECTED.id,formData).subscribe((resp:any) => {
       console.log(resp);
 
 
       if(resp.message == 403){
+        this.toast.error("Validación",resp.message_text);
+      }
+      if(resp.message == 404){
         this.toast.error("Validación",resp.message_text);
       }else{
         this.toast.success("Exito","El usuario se ha editado correctamente");

@@ -10,8 +10,6 @@ import { ClientSegmentModule } from './client-segment/client-segment.module';
 import { ProductCategorieModule } from './product-categorie/product-categorie.module';
 import { ProviderModule } from './provider/provider.module';
 
-
-
 @NgModule({
   declarations: [
 

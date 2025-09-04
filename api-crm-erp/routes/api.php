@@ -9,6 +9,7 @@ use App\Http\Controllers\Configuration\SucursaleDeliverieController;
 use App\Http\Controllers\Configuration\ClientSegmentController;
 use App\Http\Controllers\Configuration\ProductCategorieController;
 use App\Http\Controllers\Configuration\ProviderController;
+use App\Http\Controllers\Configuration\UnitController;
 use App\Http\Controllers\Configuration\WarehouseController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserAccessContorller;
@@ -67,5 +68,8 @@ Route::group([
 
     Route::post('/providers/{id}',  [ProviderController::class, 'update']);
     Route::resource("providers",     ProviderController::class);
+
+    Route::post('/units/{id}',   [UnitController::class, 'update']);
+    Route::resource("units",     UnitController::class);
 
 });

@@ -30,7 +30,7 @@ class ProviderController extends Controller
                     "rfc"          =>    $_provider->rfc,
                     "address"      =>    $_provider->address,
                     "phone"        =>    $_provider->phone,
-                    "emaii"        =>    $_provider->email,
+                    "email"        =>    $_provider->email,
                     "state"        =>    $_provider->state,
                     'imagen'       =>    $_provider->imagen? env("APP_URL")."storage/".$_provider->imagen: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
                     "created_at"   =>    $_provider->created_at->format('Y-m-d H:i A'),
@@ -84,7 +84,7 @@ class ProviderController extends Controller
                 "rfc"        => $_provider->rfc,
                 "address"    => $_provider->address,
                 "phone"      => $_provider->phone,
-                "emaii"      => $_provider->email,
+                "email"      => $_provider->email,
                 "state"      => $_provider->state,
                 "state"      => $_provider->state ?? 1,
                 'imagen'     => $_provider->imagen? env("APP_URL")."storage/".$_provider->imagen: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
@@ -142,7 +142,7 @@ class ProviderController extends Controller
                 "rfc"        => $_provider->rfc,
                 "address"    => $_provider->address,
                 "phone"      => $_provider->phone,
-                "emaii"      => $_provider->email,
+                "email"      => $_provider->email,
                 "state"      => $_provider->state,
                 "state"      => $_provider->state ?? 1,
                 'imagen'     => $_provider->imagen? env("APP_URL")."storage/".$_provider->imagen: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
@@ -156,7 +156,7 @@ class ProviderController extends Controller
      */
     public function destroy(string $id)
     {
-         $_provider= Provider::findOrFail($id);
+         $_provider = Provider::findOrFail($id);
          //validacion por prfoforma
          $_provider->delete();
          return response()->json([

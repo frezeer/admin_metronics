@@ -16,8 +16,8 @@ export class ListsProviderComponent {
 
         search: string = '';
         PROVIDERS: any = [];
-        //PROVIDERS: Provider[] = [];
-        isLoading$:any;
+
+        isLoading$:  any;
         totalPages:  number = 0;
         currentPage: number = 1;
 
@@ -36,7 +36,7 @@ export class ListsProviderComponent {
         listProviders(page = 1){
           this.providerService.listProviders(page = 1, this.search).subscribe((resp:any) => {
                 console.log(resp);
-                 this.PROVIDERS = resp.product_categories; //lo que trae del backend
+                 this.PROVIDERS = resp.providers; //lo que trae del backend
                  this.totalPages = resp.total;
                  this.currentPage = page;
           })

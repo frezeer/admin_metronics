@@ -85,7 +85,7 @@ export class ListsUnitsComponent {
          addTransform(UNIT:any){
           const modalRef = this.ModalService.open(CreateTransformsUnitsComponent, {centered: true, size: 'md'});
           modalRef.componentInstance.UNIT_SELECTED = UNIT; //emite al hijo
-          modalRef.componentInstance.UNITS = this.UNITS; //RELLENA EL SELECT CON LAS UNIDADES AL MOMENTO
+          modalRef.componentInstance.UNITS = this.UNITS.filter((unit:any) => unit.id != UNIT.id); //RELLENA EL SELECT CON LAS UNIDADES AL MOMENTO
 
          }
 

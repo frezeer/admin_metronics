@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreateTransformsUnitsComponent {
 
-      @Output() UnitsC: EventEmitter<any> = new EventEmitter();
+      @Output() UnitsCt: EventEmitter<any> = new EventEmitter();
       @Input() UNIT_SELECTED:any = [];
       @Input() UNITS:any = [];
          isLoading:      any;
@@ -58,7 +58,7 @@ export class CreateTransformsUnitsComponent {
             this.toast.error('validacion', resp.message_text);
           }else{
             this.toast.success('Exito', 'Unidad creada correctamente');
-            this.UnitsC.emit(resp);
+            this.UnitsCt.emit(resp);
             this.modal.close();
           }
         });

@@ -3,7 +3,7 @@
     <!--begin::Modal header-->
     <div class="modal-header" id="kt_modal_add_user_header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Add Proveedor</h2>
+        <h2 class="fw-bolder">Editar Proveedor</h2>
         <!--end::Modal title-->
 
         <!--begin::Close-->
@@ -105,14 +105,11 @@
                            [(ngModel)]="email"
                            #emailField="ngModel"
                            required
-                           maxlength="100"/>
+                           maxlength="40"/>
                     <!--end::Input-->
                     <div *ngIf="emailField.invalid && emailField.touched" class="text-danger mt-1">
                         <small *ngIf="emailField.errors?.['required']">
                             El email del Proveedor es obligatorio.
-                        </small>
-                        <small *ngIf="emailField.errors?.['email']">
-                            El formato del email no es válido.
                         </small>
                     </div>
                 </div>

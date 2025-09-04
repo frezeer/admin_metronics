@@ -9,7 +9,8 @@ import { ProviderService } from '../service/provider.service';
   styleUrls: ['./edit-provider.component.scss']
 })
 export class EditProviderComponent {
-   @Output() ProviderC: EventEmitter<any> = new EventEmitter();
+
+   @Output() ProviderE: EventEmitter<any> = new EventEmitter();
    @Input() PROVIDERS_SELECTED : any = [];
 
           PROVIDERS:            any = [];
@@ -35,7 +36,7 @@ export class EditProviderComponent {
 
             ngOnInit(): void {
 
-            this.full_name =  this.PROVIDERS_SELECTED.full_namename;
+            this.full_name =  this.PROVIDERS_SELECTED.full_name;
             this.email      = this.PROVIDERS.email;
             this.phone      = this.PROVIDERS_SELECTED.phone;
             this.rfc        = this.PROVIDERS_SELECTED.rfc
@@ -93,6 +94,14 @@ export class EditProviderComponent {
               }
 
 
+
+              if (!this.email) {
+                this.toast.error('Validación', 'El email es obligatoria');
+                return false;
+              }
+
+
+
               let formData = new FormData();
               formData.append("full_name",    this.full_name);
               formData.append("provider_imagen",  this.file_name);
@@ -113,7 +122,7 @@ export class EditProviderComponent {
               this.toast.error('validacion', resp.message_text);
             }else{
               this.toast.success('Exito', 'Proveedor creado correctamente');
-              this.ProviderC.emit(resp.providers);//respuesta del backend
+              this.ProviderE.emit(resp.providers);//respuesta del backend
               this.modal.close();
             }
           });

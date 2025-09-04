@@ -68,6 +68,12 @@
                         colspan="1" aria-label="Email: Activate to sort" tabindex="0"><span
                         class="dt-column-title" role="button">Direccion</span><span
                         class="dt-column-order"></span></th>
+
+                        <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="2" rowspan="1"
+                        colspan="1" aria-label="Email: Activate to sort" tabindex="0"><span
+                        class="dt-column-title" role="button">correo</span><span
+                        class="dt-column-order"></span></th>
+
                      <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="2" rowspan="1"
                         colspan="1" aria-label="Email: Activate to sort" tabindex="0"><span
                         class="dt-column-title" role="button">Estado</span><span
@@ -102,6 +108,11 @@
                         </td>
 
 
+                         <td>
+                           <!-- Fixed: Added safe navigation operator -->
+                           {{ PROVIDER?.email || 'N/A' }}
+                        </td>
+
                         <td>
                                 <ng-container [ngSwitch]="PROVIDER?.state">
                                   <span class="badge badge-light-success"   *ngSwitchCase="1">Activo</span>
@@ -110,6 +121,7 @@
                                   <span class="badge badge-light-secondary" *ngSwitchDefault>N/A</span>
                                 </ng-container>
                         </td>
+
 
                         <td>
                            <!-- Fixed: Added safe navigation operator -->

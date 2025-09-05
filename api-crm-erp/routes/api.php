@@ -14,7 +14,7 @@ use App\Http\Controllers\Configuration\WarehouseController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserAccessContorller;
-
+use App\Models\Configuration\ProductCategorie;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +77,9 @@ Route::group([
     Route::post('/units/{id}',   [UnitController::class, 'update']);
     Route::resource("units",     UnitController::class);
 
-     Route::post('/products/{id}',   [ProductController::class, 'update']);
+
+    Route::get('/products/config',   [ProductController::class, 'config']);
+    Route::post('/products/{id}',    [ProductController::class, 'update']);
     Route::resource("products",      ProductController::class);
 
 });

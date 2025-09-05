@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ProductsModule } from '../modules/products/products.module';
 
 const Routing: Routes = [
   {
@@ -62,6 +63,11 @@ const Routing: Routes = [
     path: 'configuraciones',
     loadChildren: () => import('../modules/configuration/configuration.module').then((m) => m.ConfigurationModule),
 
+  },
+
+  {
+    path: 'productos',
+    loadChildren: () => import('../modules/products/products.module').then((m) => ProductsModule),
   },
   {
     path: '',

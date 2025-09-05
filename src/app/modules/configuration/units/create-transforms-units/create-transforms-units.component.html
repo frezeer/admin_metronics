@@ -35,6 +35,7 @@
                     <select class="form-control form-select-solid fw-bolder"
                       name="unit_transform"
                       place-holder="Select Unidad"
+                      [(ngModel)]="unit_to_id"
                     >
                     <ng-container *ngFor="let UNIT of UNITS">
                       <option [value]="UNIT.id">{{ UNIT.name}}</option>
@@ -42,43 +43,52 @@
                     </select>
                 </div>
 
-                <div class="fv-row mb-7">
+                <div class="fv-row row mb-7">
+                  <div class="col-8">
+                  </div>
+                  <div class="col-4">
+                  <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
+                   <span class="indicator-label">Registrar</span>
+                   <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+                  </button>
+                  </div>
+                  <div class="fw-row mb-7">
+                    <div class="col-12">
+                      <div class="table-responsive w-100">
+                    <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
+                        <thead>
+                            <tr class="text-left">
+                                <th>UNIDAD/DIMENCION</th>
+                                <th>ACCIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let transform of UNIT_SELECTED.transforms; let i=index">
+                                <td>
+                                    {{ transform.unit_to.name }}
+                                </td>
+                                <td>
+                                    <button class="ml-5 btn btn-sm btn-danger" (click)="removeUnitTransform(transform)">X</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="fv-row mb-7">
                     <!--begin::Label-->
                     <div class="table-responsive w-100">
                       <!--begin::Label-->
-
-
-
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <div class="d-flex flex-column mb-8">
-                        <label class="required fs-6 fw-semibold mb-2">Descripcion (Opcional)</label>
-                        <textarea class="form-control form-control-solid"  rows="3" [(ngModel)]="description"
-                         name="description" placeholder="Descripcion de la Unidad"
-                         #descriptionField="ngModel"
-                         required
-                         maxlength="100"
-                         ></textarea>
-                         <div *ngIf="descriptionField.invalid && descriptionField.touched" class="text-danger mt-1">
-                              <small *ngIf="descriptionField.errors?.['required']">
-                                la descripcion es requerida
-                            </small>
-                        </div>
-                    </div>
-
                     </div>
                 </div>
-            </div>
-
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
-                <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
-                    <span class="indicator-label">Registrar</span>
 
-                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
-                    <!-- <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
-                </button>
             </div>
             <!--end::Actions-->
         </form>

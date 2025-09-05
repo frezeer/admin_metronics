@@ -35,7 +35,7 @@ export class ListsUnitsComponent {
         listUnits(page = 1){
           this.unitService.listUnits(page = 1, this.search).subscribe((resp:any) => {
                 console.log(resp);
-                 this.UNITS = resp.unidades; //lo que trae del backend
+                 this.UNITS = resp.unit; //lo que trae del backend
                  this.totalPages = resp.total;
                  this.currentPage = page;
 
@@ -82,11 +82,10 @@ export class ListsUnitsComponent {
            });
          }
 
-         addTransform(UNIT:any){
+         addTransform(UNITS:any){
           const modalRef = this.ModalService.open(CreateTransformsUnitsComponent, {centered: true, size: 'md'});
-          modalRef.componentInstance.UNIT_SELECTED = UNIT; //emite al hijo
-          modalRef.componentInstance.UNITS = this.UNITS.filter((unit:any) => unit.id != UNIT.id); //RELLENA EL SELECT CON LAS UNIDADES AL MOMENTO
-
+          modalRef.componentInstance.UNIT_SELECTED = UNITS; //emite al hijo
+          modalRef.componentInstance.UNITS = this.UNITS.filter((unit:any) => unit.id != UNITS.id); //RELLENA EL SELECT CON LAS UNIDADES AL MOMENTO
          }
 
 

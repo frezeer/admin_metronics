@@ -10,58 +10,65 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreateTransformsUnitsComponent {
 
-      @Output() UnitsCt: EventEmitter<any> = new EventEmitter();
-      @Input() UNIT_SELECTED:any = [];
-      @Input() UNITS:any = [];
-         isLoading:      any;
-         name:           string = '';
-         description:    string = '';
 
-          constructor(
-            public modal: NgbActiveModal,
-            public unitService : UnitsService , // Assuming RolesService is injected here
-            public toast: ToastrService,
-          ) {
-
-          }
-
-          ngOnInit(): void {
-
-          }
-
-          store(){
-
-            if(!this.name){
-              this.toast.error('validacion', 'El nombre de la Unidad es obligatorio');
-              return false;
-            }
-
-               if(!this.description){
-              this.toast.error('validacion', 'La descripcion es obligatorio');
-              return false;
-            }
+  // @Output() UnitC: EventEmitter<any> = new EventEmitter();
+  @Input() UNIT_SELECTED:any;
+  @Input() UNITS:any = [];
+  unit_to_id:string = '';
 
 
+  isLoading:any;
 
-        let data = {
-          name:        this.name,
-          description: this.description
-        };
+  constructor(
+    public modal: NgbActiveModal,
+    public unitService: UnitsService,
+    public toast: ToastrService,
+  ) {
 
-        console.log(data);
+  }
 
-         this.unitService.RegisterUnits(data).subscribe((resp:any) => {
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
 
-          console.log(resp);
+  }
 
-          if(resp.message == 403){
-            this.toast.error('validacion', resp.message_text);
-          }else{
-            this.toast.success('Exito', 'Unidad creada correctamente');
-            this.UnitsCt.emit(resp);
-            this.modal.close();
-          }
-        });
+  store(){
+    if(!this.unit_to_id){
+      this.toast.error("Validación","La unidad es requerido");
+      return false;
+    }
+
+    let data = {
+      unit_id: this.UNIT_SELECTED.id,
+      unit_to_id : this.unit_to_id,
+    }
+
+    this.unitService.RegisterTransnformUnits(data).subscribe((resp:any) => {
+      console.log(resp);
+      if(resp.message == 403){
+        this.toast.error("Validación",resp.message_text);
+      }else{
+        this.toast.success("Exito","La unidad se registro correctamente");
+        // this.UnitC.emit(resp.unit);
+        this.UNIT_SELECTED.transforms.unshift(resp.unit);
+        // this.modal.close();
       }
+    })
+  }
+
+   removeUnitTransform(transform:any){
+  //   const modalRef = this.modalService.open(DeleteTransformsUnitsComponent,{centered:true, size: 'sm'});
+  //   modalRef.componentInstance.TRANSFORM_SELECTED = transform;
+
+  //   modalRef.componentInstance.UnitD.subscribe((unit_s:any) => {
+  //     let INDEX = this.UNIT_SELECTED.transforms.findIndex((unit_selec:any) => unit_selec.id == transform.id);
+  //     if(INDEX != -1){
+  //       this.UNIT_SELECTED.transforms.splice(INDEX,1);
+  //     }
+  //     // this.ROLES.unshift(role);
+  //   })
+ }
+
 
 }

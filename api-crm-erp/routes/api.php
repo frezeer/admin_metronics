@@ -66,8 +66,11 @@ Route::group([
     Route::post('/product_categories/{id}',  [ProductCategorieController::class, 'update']);
     Route::resource("product_categories",     ProductCategorieController::class);
 
-    Route::post('/providers/{id}',  [ProviderController::class, 'update']);
+    Route::post('/providers/{id}',   [ProviderController::class, 'update']);
     Route::resource("providers",     ProviderController::class);
+
+    Route::post('/units/add-transform',          [UnitController::class, 'add_transform']);
+    Route::delete('/units/delete-transform/{id}',[UnitController::class, 'delete_transform']);
 
     Route::post('/units/{id}',   [UnitController::class, 'update']);
     Route::resource("units",     UnitController::class);

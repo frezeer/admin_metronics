@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Configuration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Configuration\Unit;
+use App\Models\Configuration\UnitTransform;
 
 class UnitController extends Controller
 {
@@ -17,18 +18,21 @@ class UnitController extends Controller
         // You can implement the logic to fetch and return the list of branches (units)
      $search = $request->get("search");
 
-     $units = Unit::where("name","like","%".$search."%")->orderBy("id","desc")->paginate(25);
+     $units = Unit::where("name","like","%".$search."%")->orderBy("id","asc")->paginate(25);
      //$users = User::where("name", "like", "%".$search."%")->orderBy("id", "desc")->paginate(25);
 
         return response()->json([
             "total"       => $units->total(),
-            "unidades" => $units->map(function ($unit) {
+            "unit"        => $units->map(function ($unit) {
                 return [
                     "id"          =>    $unit->id,
                     "name"        =>    $unit->name,
                     "description" =>    $unit->description,
                     "state"       =>    $unit->state,
-                    "transforms"  =>    $unit->transforms, //viene del controlador unit // function transforms(){}
+                    "transforms"  =>    $unit->transforms->map(function ($transform){
+                        $transform->unit_to = $transform->unit_to;
+                        return $transform;
+                    }), //viene del controlador unit // function transforms(){}
                     "created_at"  =>    $unit->created_at->format('Y-m-d H:i A'),
                 ];
             }),
@@ -46,13 +50,13 @@ class UnitController extends Controller
 
         if($is_exist_unit) {
             return response()->json([
-                "message" => "La unit ya existe",
+                "message_text" => "La unidad ya existe",
                 "status"  => false,
             ], 403);
         }
+
         $request->validate([
-            "name"    => "required|string|max:255",
-            "description" => "required|string|max:255",
+
         ]);
 
         $unit = Unit::create(
@@ -60,9 +64,9 @@ class UnitController extends Controller
         );
 
         return response()->json([
-            "message" => "unit creada correctamente",
+            "message" => "unidad creada correctamente",
             "status"  => true,
-            "unidades" => [
+            "unit" => [
                 "name"         => $unit->name,
                 "description"  => $unit->description,
                 "transforms"   => $unit->transforms, //viene del controlador unit // function transforms(){}
@@ -71,6 +75,53 @@ class UnitController extends Controller
             ],
         ]);
     }
+
+
+    public function add_transform(Request $request)
+    {
+         $is_exist_unit = UnitTransform::where("unit_id",     $request->unit_id)
+                                        ->where("unit_to_id", $request->unit_to_id)
+                                        ->first();
+
+        if($is_exist_unit) {
+            return response()->json([
+                "message" => "La unidad que seleccionaste ya existe",
+                "status"  => false,
+            ], 403);
+        }
+
+
+        $unit = UnitTransform::create([
+             "unit_id"    => $request->unit_id,
+             "unit_to_id" => $request->unit_to_id,
+        ]
+        );
+
+        return response()->json([
+            "message" => 200,
+            "status"  => true,
+            "unit" => [
+                "id"            => $unit->id,
+                "unit_id"       => $unit->unit_id,
+                "unit_to_id"    => $unit->unit_to_id,
+                "unit_to"       => $unit->unit_to,
+                "created_at"    => $unit->created_at->format('Y-m-d H:i A'),
+            ],
+        ]);
+
+    }
+
+    public function delete_transform($id)
+    {
+
+        $unit = UnitTransform::findOrFail($id);
+        $unit->delete();
+
+        return response()->json([
+            "message" => 200,
+        ]);
+    }
+
 
     /**
      * Display the specified resource.
@@ -90,27 +141,30 @@ class UnitController extends Controller
 
         if($is_exist_unit) {
             return response()->json([
-                "message" => "La unit ya existe",
+                "message" => "La unidad ya existe",
                 "status"  => false,
             ], 403);
         }
         $request->validate([
-            "name"    => "required|string|max:255",
-            "description" => "required|string|max:255",
+            "name"        => "required|string|max:255",
+
         ]);
 
         $unit = Unit::findOrFail($id);
         $unit->update($request->all());
 
         return response()->json([
-            "message" => "unit creada correctamente",
+            "message" => "unidad creada correctamente",
             "status"  => true,
-            "unidades" => [
+            "unit" => [
                 "id"            => $unit->id,
-                "name"        => $unit->name,
-                "description"  => $unit->description,
-                "transforms"   => $unit->transforms, //viene del controlador unit // function transforms(){}
-                "state"        => $unit->state ?? 1,
+                "name"          => $unit->name,
+                "description"   => $unit->description,
+                "transforms"  =>    $unit->transforms->map(function ($transform){
+                        $transform->unit_to = $transform->unit_to;
+                        return $transform;
+                    }), //viene del controlador unit // function transforms(){}
+                "state"         => $unit->state ?? 1,
                 "created_at"    => $unit->created_at->format('Y-m-d H:i A'),
             ],
         ]);
@@ -126,7 +180,7 @@ class UnitController extends Controller
          //producto
          $unit->delete();
          return response()->json([
-             "message" => "unit eliminada correctamente",
+             "message" => "unidad eliminada correctamente",
              "status"  => true,
          ]);
     }

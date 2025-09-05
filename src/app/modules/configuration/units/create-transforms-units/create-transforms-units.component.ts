@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UnitsService } from '../service/units.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { DeleteTransformsUnitsComponent } from '../delete-transforms-units/delete-transforms-units.component';
 
 @Component({
   selector: 'app-create-transforms-units',
@@ -23,6 +24,7 @@ export class CreateTransformsUnitsComponent {
     public modal: NgbActiveModal,
     public unitService: UnitsService,
     public toast: ToastrService,
+    public ModalService: NgbModal,// se importa este modal por el modal nuevo que remueve el Transform
   ) {
 
   }
@@ -58,16 +60,16 @@ export class CreateTransformsUnitsComponent {
   }
 
    removeUnitTransform(transform:any){
-  //   const modalRef = this.modalService.open(DeleteTransformsUnitsComponent,{centered:true, size: 'sm'});
-  //   modalRef.componentInstance.TRANSFORM_SELECTED = transform;
+     const modalRef = this.ModalService.open(DeleteTransformsUnitsComponent,{centered:true, size: 'sm'});
+     modalRef.componentInstance.TRANSFORM_SELECTED = transform;
 
-  //   modalRef.componentInstance.UnitD.subscribe((unit_s:any) => {
-  //     let INDEX = this.UNIT_SELECTED.transforms.findIndex((unit_selec:any) => unit_selec.id == transform.id);
-  //     if(INDEX != -1){
-  //       this.UNIT_SELECTED.transforms.splice(INDEX,1);
-  //     }
-  //     // this.ROLES.unshift(role);
-  //   })
+    modalRef.componentInstance.UnitD.subscribe((unit_s:any) => {
+     let INDEX = this.UNIT_SELECTED.transforms.findIndex((unit_selec:any) => unit_selec.id == transform.id);
+      if(INDEX != -1){
+       this.UNIT_SELECTED.transforms.splice(INDEX,1);
+     }
+    // this.ROLES.unshift(role);
+    })
  }
 
 

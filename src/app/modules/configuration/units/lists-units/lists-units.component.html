@@ -79,6 +79,10 @@
                         class="dt-column-title" role="button">Created Date</span><span
                         class="dt-column-order"></span></th>
 
+                    <th>
+                        Transformar
+                     </th>
+
                      <th>
                         Editar
                      </th>
@@ -100,8 +104,6 @@
                          <!-- Fixed: Added safe navigation operator -->
                          <span style="width: 550px !important; display: block;" > {{ UNIT.description }} </span>
                         </td>
-
-
                         <td>
                                 <ng-container [ngSwitch]="UNIT.state">
                                   <span class="badge badge-light-success"   *ngSwitchCase="1">Activo</span>

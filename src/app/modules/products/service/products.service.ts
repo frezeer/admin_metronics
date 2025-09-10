@@ -118,7 +118,7 @@ export class ProductsService {
 
        } */
 
-    updateProvider(ID_PRODUCTS: number, data: any) {
+    updateProductss(ID_PRODUCTS: number, data: any) {
         console.log('=== INICIO UPDATE PRODUCTS ===');
         console.log('ID_PRODUCTS:',ID_PRODUCTS);
         console.log('Data enviada:', data);
@@ -196,14 +196,14 @@ export class ProductsService {
       this.isLoadingSubject.next(true);
       let headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authservice.token});
       //const URL = URL_SERVICIOS + 'Products/' + ID_PRODUCTS;
-      let URL = URL_SERVICIOS+"products/"+ID_PRODUCTS;
+      let URL =     URL_SERVICIOS+"products/"+ID_PRODUCTS;
       return this.http.post(URL,data,{headers: headers}).pipe(
         finalize(() => this.isLoadingSubject.next(false))
       );
     }
 
 
-    deleteProvider(ID_PRODUCTS: string){
+    deleteProducts(ID_PRODUCTS: string){
           this.isLoadingSubject.next(true);
           let headers = new HttpHeaders({
             'Authorization': 'Bearer ' + this.authservice.token  // ← corrección aquí

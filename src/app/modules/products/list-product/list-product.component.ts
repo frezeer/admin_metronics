@@ -34,7 +34,7 @@ export class ListProductComponent {
   umbral_unit_id:string = '';
 
   weight:number = 0;
-  width:number = 0;
+  width:number  = 0;
   height:number = 0;
   length:number = 0;
 
@@ -73,11 +73,11 @@ export class ListProductComponent {
 
     this.productService.configAll().subscribe((resp:any) => {
       console.log(resp);
-      this.WAREHOUSES = resp.almacens;
-      this.SUCURSALES = resp.sucursales;
-      this.UNITS = resp.units;
+      this.WAREHOUSES      = resp.almacens;
+      this.SUCURSALES      = resp.sucursales;
+      this.UNITS           = resp.units;
       this.CLIENT_SEGMENTS = resp.segments_clients;
-      this.CATEGORIES = resp.categories;
+      this.CATEGORIES      = resp.categories;
     })
   }
 

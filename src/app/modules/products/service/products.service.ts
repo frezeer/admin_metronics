@@ -37,7 +37,7 @@ export class ProductsService {
         //console.log('Token de List Roles', this.authservice.token);
         this.isLoadingSubject.next(true);
         let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
-        let URL = URL_SERVICIOS + 'products/config';
+        let URL     = URL_SERVICIOS + 'products/config';
         return this.http.get(URL,{ headers: headers }).pipe(
           finalize(() => this.isLoadingSubject.next(false))
         );

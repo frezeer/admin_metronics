@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
+use App\Models\Configuration\Unit;
 use App\Http\Controllers\Controller;
+use App\Models\configuration\Sucursale;
+use App\Models\Configuration\Warehouse;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Configuration\ClientSegment;
+use App\Models\Configuration\ProductCategorie;
 
 class ProductController extends Controller
 {
@@ -62,6 +67,16 @@ class ProductController extends Controller
         return response()->json([
             "message" => 200,
             "message_text"    => "la categoria del producto creada correctamente",
+        ]);
+    }
+
+       public function config(){
+        return response()->json([
+            "alamacenes"       => Warehouse::all(),
+            "sucursales"       => Sucursale::all(),
+            "segments_clients" => ClientSegment::all(),
+            "categories"       => ProductCategorie::all(),
+            "units"            => Unit::all(),
         ]);
     }
 

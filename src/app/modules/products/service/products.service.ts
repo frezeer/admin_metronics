@@ -119,7 +119,7 @@ export class ProductsService {
        } */
 
     updateProvider(ID_PRODUCTS: number, data: any) {
-        console.log('=== INICIO UPDATE USER ===');
+        console.log('=== INICIO UPDATE PRODUCTS ===');
         console.log('ID_PRODUCTS:',ID_PRODUCTS);
         console.log('Data enviada:', data);
 

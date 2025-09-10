@@ -157,7 +157,7 @@ export class ListProductComponent {
       sucursale_price_multiple: this.sucursale_price_multiple,
       client_segment_price_multiple: this.client_segment_price_multiple,
     });
-    this.quantity_price_multiple = 0;
+    this.quantity_price_multiple  = 0;
     this.sucursale_price_multiple = ''
     this.client_segment_price_multiple = '';
     this.unit_price_multiple = '';
